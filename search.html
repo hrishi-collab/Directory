@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Listings | DN Directory</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#1B211D',
+                        surface: '#F1F3EF',
+                        forest: '#3D6B52',
+                        forestDark: '#2E5140',
+                        clay: '#B65C2E'
+                    },
+
+                    fontFamily: {
+                        head: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for 3D Background Mesh & Card Hover Effects -->
+    <style>
+        /* 3D Perspective Canvas Container */
+        .perspective-container {
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        /* Ambient Pulsing Gradient Spheres */
+        .orb-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(61, 107, 82, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: 300px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(182, 92, 46, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: floatOrb 16s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 80px) scale(1.15); }
+        }
+
+        /* Subdued 3D Tilting Floor Grid */
+        .grid-3d {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(to right, rgba(61, 107, 82, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(61, 107, 82, 0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: rotateX(60deg) rotateZ(-12deg) translateZ(-100px);
+            transform-style: preserve-3d;
+            animation: gridMove 25s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: rotateX(60deg) rotateZ(-12deg) translateY(0px); }
+            100% { transform: rotateX(60deg) rotateZ(-12deg) translateY(60px); }
+        }
+
+        /* Dynamic Subtle 3D Depth Card Hover */
+        .card-3d {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-6px) rotateX(2deg) rotateY(-1deg) scale(1.01);
+            box-shadow: 0 20px 25px -5px rgba(27, 33, 29, 0.08), 0 8px 10px -6px rgba(27, 33, 29, 0.04);
+        }
+    </style>
+
+</head>
+
+<body class="font-body bg-surface text-ink min-h-screen flex flex-col pt-20 relative overflow-x-hidden">
+
+    <!-- 3D BACKGROUND ENGINE -->
+    <div class="fixed inset-0 pointer-events-none z-0 perspective-container">
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <div class="grid-3d"></div>
+    </div>
+
+    <!-- FIXED NAVBAR -->
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-ink/10">
+
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center">
+
+            <!-- Logo -->
+            <a
+                href="index.html"
+                class="font-head font-bold text-xl tracking-tight text-ink"
+            >
+                 Directory
+            </a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
+                <a href="index.html" class="hover:text-ink transition-colors">
+                    Home
+                </a>
+
+                <a href="search.html" class="hover:text-ink font-semibold text-ink transition-colors">
+                    Search
+                </a>
+
+                <a href="aboutus.html" class="hover:text-ink transition-colors">
+                    About Us
+                </a>
+
+                <a href="map.html" class="hover:text-ink transition-colors">
+                    Map
+                </a>
+
+                <a href="submit-listing.html" class="hover:text-ink transition-colors">
+                    Submit Listing
+                </a>
+
+            </nav>
+
+            <!-- Right side: Contact Us + Account -->
+            <div class="justify-self-end flex items-center gap-6">
+
+                <a
+                    href="contactus.html"
+                    class="hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
+                >
+                    Contact Us
+                </a>
+
+                <a
+                    href="account.html"
+                    aria-label="Account"
+                    class="w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                        />
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="flex-grow z-10 relative">
+
+        <section class="max-w-7xl mx-auto px-6 pt-10 pb-6">
+
+            <h1 class="font-head font-bold text-3xl md:text-4xl leading-tight max-w-xl text-ink">
+                Find what your neighborhood is selling
+            </h1>
+
+            <form
+                class="mt-6 flex flex-col sm:flex-row gap-3 max-w-2xl"
+                onsubmit="event.preventDefault(); runSearch();"
+            >
+
+                <div class="flex-1 relative">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+
+                    </svg>
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search listings, e.g. 'wooden desk'"
+                        class="w-full pl-11 pr-4 py-3 rounded-xl border border-ink/10 bg-white/70 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-forest/40 font-body text-sm shadow-sm transition-all"
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="px-6 py-3 rounded-xl bg-forest hover:bg-forestDark text-white font-head font-semibold text-sm shadow-md hover:shadow-lg transition-all"
+                >
+                    Search
+                </button>
+
+            </form>
+
+            <div
+                id="categoryChips"
+                class="mt-5 flex gap-2 overflow-x-auto pb-2"
+            ></div>
+
+        </section>
+
+
+        <section class="max-w-7xl mx-auto px-6 pb-16 flex gap-8">
+
+            <aside class="hidden md:block w-60 shrink-0">
+
+                <div class="sticky top-24 space-y-6 bg-white/60 backdrop-blur-md p-5 rounded-2xl border border-white/60 shadow-sm">
+
+                    <div>
+
+                        <h3 class="font-head font-semibold text-sm mb-3">
+                            Price range
+                        </h3>
+
+                        <div class="flex items-center gap-2">
+
+                            <input
+                                id="minPrice"
+                                type="number"
+                                placeholder="Min"
+                                class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm bg-white/80"
+                            >
+
+                            <span class="text-ink/40">–</span>
+
+                            <input
+                                id="maxPrice"
+                                type="number"
+                                placeholder="Max"
+                                class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm bg-white/80"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 class="font-head font-semibold text-sm mb-3">
+                            Location
+                        </h3>
+
+                        <input
+                            id="locationFilter"
+                            type="text"
+                            placeholder="City or ZIP"
+                            class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm bg-white/80"
+                        >
+
+                    </div>
+
+
+                    <button
+                        onclick="runSearch()"
+                        class="w-full py-2.5 rounded-lg border border-forest text-forest hover:bg-forest hover:text-white transition-colors font-head font-semibold text-sm"
+                    >
+                        Apply filters
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <button
+                onclick="document.getElementById('filterDrawer').classList.remove('translate-x-full')"
+                class="md:hidden fixed bottom-6 right-6 z-30 bg-forest text-white rounded-full px-5 py-3 font-head font-semibold text-sm shadow-lg"
+            >
+                Filters
+            </button>
+
+
+            <div
+                id="filterDrawer"
+                class="md:hidden fixed inset-y-0 right-0 w-72 bg-white/95 backdrop-blur-xl border-l border-ink/10 z-40 p-6 transform translate-x-full transition-transform shadow-2xl"
+            >
+
+                <div class="flex items-center justify-between mb-6">
+
+                    <h3 class="font-head font-bold">
+                        Filters
+                    </h3>
+
+                    <button
+                        onclick="document.getElementById('filterDrawer').classList.add('translate-x-full')"
+                        class="text-ink/50"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+                <div class="space-y-6">
+
+                    <div>
+
+                        <h4 class="font-head font-semibold text-sm mb-3">
+                            Price range
+                        </h4>
+
+                        <div class="flex items-center gap-2">
+
+                            <input
+                                type="number"
+                                placeholder="Min"
+                                class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm"
+                            >
+
+                            <span class="text-ink/40">–</span>
+
+                            <input
+                                type="number"
+                                placeholder="Max"
+                                class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <h4 class="font-head font-semibold text-sm mb-3">
+                            Location
+                        </h4>
+
+                        <input
+                            type="text"
+                            placeholder="City or ZIP"
+                            class="w-full px-3 py-2 rounded-md border border-ink/15 text-sm"
+                        >
+
+                    </div>
+
+
+                    <button
+                        onclick="runSearch()"
+                        class="w-full py-2.5 rounded-lg bg-forest text-white font-head font-semibold text-sm"
+                    >
+                        Apply filters
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="flex-1">
+
+                <div class="flex items-center justify-between mb-4">
+
+                    <p
+                        id="resultCount"
+                        class="text-sm text-ink/60"
+                    >
+                        Showing all listings
+                    </p>
+
+                    <a
+                        href="map.html"
+                        class="text-sm font-head font-semibold text-forest hover:underline"
+                    >
+                        View on map →
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="resultsGrid"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                ></div>
+
+
+                <p
+                    id="emptyState"
+                    class="hidden text-center text-ink/50 py-16 font-body text-sm"
+                >
+                    No listings match your search. Try a different keyword or clear your filters.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Top Rated Picks -->
+        <section class="max-w-7xl mx-auto px-6 py-10">
+
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-head font-bold text-2xl text-ink">
+                    Top Rated Picks
+                </h2>
+                <span class="text-xs text-ink/50 font-body">
+                    Highest rated by buyers
+                </span>
+            </div>
+
+            <div
+                id="topRatedGrid"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            >
+                <p class="col-span-full text-center text-ink/50 py-10 font-body text-sm">
+                    Loading top rated listings...
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- Bumper Deals -->
+        <section class="max-w-7xl mx-auto px-6 py-10">
+
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-head font-bold text-2xl text-ink">
+                    Bumper Deals
+                </h2>
+                <span class="text-xs text-ink/50 font-body">
+                    Steepest prices right now
+                </span>
+            </div>
+
+            <div
+                id="bumperDealsGrid"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            >
+                <p class="col-span-full text-center text-ink/50 py-10 font-body text-sm">
+                    Loading bumper deals...
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="max-w-7xl mx-auto px-6 mb-16">
+
+            <div class="bg-white/70 backdrop-blur-xl rounded-2xl p-8 md:p-12 text-center border border-white/80 shadow-md">
+
+                <h2 class="font-head font-bold text-2xl md:text-3xl text-ink mb-4">
+                    Want to sell something? Submit your listing
+                </h2>
+
+                <p class="font-body text-sm text-ink/60 max-w-md mx-auto mb-6">
+                    Reach buyers across your city without listing fees or hassle.
+                </p>
+
+                <button
+                    onclick="window.location.href='submit-listing.html'"
+                    class="py-3 px-6 rounded-lg bg-forest text-white font-head font-semibold text-sm hover:bg-forestDark transition-colors shadow-sm"
+                >
+                    Submit a listing
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Stats section -->
+        <section class="max-w-7xl mx-auto px-6 py-10">
+
+            <div class="bg-white/60 backdrop-blur-md rounded-2xl p-8 sm:p-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center border border-white/80 shadow-sm">
+
+                <div>
+                    <p class="font-head font-bold text-3xl sm:text-4xl text-clay mb-1">
+                        1,200+
+                    </p>
+                    <p class="font-body text-xs sm:text-sm text-ink/60">
+                        Active listings
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-head font-bold text-3xl sm:text-4xl text-clay mb-1">
+                        40+
+                    </p>
+                    <p class="font-body text-xs sm:text-sm text-ink/60">
+                        Neighborhoods covered
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-head font-bold text-3xl sm:text-4xl text-clay mb-1">
+                        No fees
+                    </p>
+                    <p class="font-body text-xs sm:text-sm text-ink/60">
+                        To list or browse
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-head font-bold text-3xl sm:text-4xl text-clay mb-1">
+                        24 hrs
+                    </p>
+                    <p class="font-body text-xs sm:text-sm text-ink/60">
+                        Avg. seller response
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const CATEGORY_MAP = {
+            'All': '',
+            'Furniture': 'furniture',
+            'Electronics': 'phone',
+            'Vehicles': 'motorcycle',
+            'Apparel': 'shirt',
+            'Home Goods': 'decoration'
+        };
+
+        let selectedCategory = 'All';
+
+
+        function renderChips(selected = 'All') {
+
+            selectedCategory = selected;
+
+            const chipContainer = document.getElementById('categoryChips');
+
+            if (!chipContainer) {
+                return;
+            }
+
+            chipContainer.innerHTML = Object.keys(CATEGORY_MAP).map(cat => {
+
+                const isActive = cat === selected;
+
+                const baseStyle =
+                    "px-4 py-2 rounded-full text-xs font-head font-semibold whitespace-nowrap transition-all cursor-pointer shadow-sm";
+
+                const activeStyle = isActive
+                    ? "bg-forest text-white"
+                    : "bg-white/80 backdrop-blur-md text-ink/70 hover:bg-white";
+
+                return `
+                    <button
+                        type="button"
+                        onclick="filterByCategory('${cat}')"
+                        class="${baseStyle} ${activeStyle}"
+                    >
+                        ${cat}
+                    </button>
+                `;
+
+            }).join('');
+
+        }
+
+
+        async function loadDummyListings() {
+
+            const grid = document.getElementById('resultsGrid');
+            const count = document.getElementById('resultCount');
+            const empty = document.getElementById('emptyState');
+
+            const searchInput =
+                document.getElementById('searchInput')?.value.trim() || '';
+
+            if (!grid) {
+                return;
+            }
+
+            grid.innerHTML =
+                `<p class="col-span-full text-center text-ink/50 py-16 font-body text-sm">
+                    Loading directory listings...
+                </p>`;
+
+            if (empty) {
+                empty.classList.add('hidden');
+            }
+
+            try {
+
+                let query = searchInput;
+
+                if (!query && selectedCategory !== 'All') {
+                    query = CATEGORY_MAP[selectedCategory];
+                }
+
+                const endpoint = query
+                    ? `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`
+                    : `https://dummyjson.com/products?limit=18`;
+
+                const res = await fetch(endpoint);
+
+                const data = await res.json();
+
+                let items = data.products || [];
+
+                const minP =
+                    parseFloat(document.getElementById('minPrice')?.value) || 0;
+
+                const maxP =
+                    parseFloat(document.getElementById('maxPrice')?.value) || Infinity;
+
+                if (minP > 0 || maxP < Infinity) {
+
+                    items = items.filter(
+                        item =>
+                            item.price >= minP &&
+                            item.price <= maxP
+                    );
+
+                }
+
+                if (count) {
+
+                    count.textContent =
+                        `Showing ${items.length} listing${items.length !== 1 ? 's' : ''}`;
+
+                }
+
+                if (items.length === 0) {
+
+                    grid.innerHTML = '';
+
+                    if (empty) {
+                        empty.classList.remove('hidden');
+                    }
+
+                    return;
+                }
+
+                grid.innerHTML = items.map(item => `
+
+                    <article class="card-3d bg-white/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/80 flex flex-col justify-between">
+
+                        <div>
+
+                            <div class="aspect-[4/3] overflow-hidden bg-white/40 relative">
+
+                                <img
+                                    src="${item.thumbnail}"
+                                    alt="${item.title}"
+                                    class="w-full h-full object-cover"
+                                >
+
+                                <span class="absolute top-2 right-2 bg-forest text-white text-[10px] font-head font-semibold uppercase px-2.5 py-1 rounded-full shadow-sm">
+                                    ${item.category}
+                                </span>
+
+                            </div>
+
+                            <div class="p-4">
+
+                                <div class="flex justify-between items-start gap-2 mb-2">
+
+                                    <h3 class="font-head font-semibold text-ink text-base line-clamp-1">
+                                        ${item.title}
+                                    </h3>
+
+                                    <span class="font-head font-bold text-clay shrink-0">
+                                        $${item.price}
+                                    </span>
+
+                                </div>
+
+                                <p class="text-xs text-ink/60 font-body line-clamp-2">
+                                    ${item.description}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="px-4 pb-4">
+
+                            <p class="text-xs text-ink/40 font-body">
+                                Verified Seller • ${item.stock} in stock
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                `).join('');
+
+            } catch (err) {
+
+                console.error('Error fetching dummy listings:', err);
+
+                grid.innerHTML =
+                    `<p class="col-span-full text-center text-clay py-16 font-body text-sm">
+                        Failed to load listings. Check your internet connection.
+                    </p>`;
+
+            }
+
+        }
+
+
+        async function loadTopRated() {
+
+            const grid = document.getElementById('topRatedGrid');
+
+            if (!grid) {
+                return;
+            }
+
+            try {
+
+                const res = await fetch('https://dummyjson.com/products?limit=100');
+
+                const data = await res.json();
+
+                const items = (data.products || [])
+                    .slice()
+                    .sort((a, b) => b.rating - a.rating)
+                    .slice(0, 4);
+
+                if (items.length === 0) {
+
+                    grid.innerHTML =
+                        `<p class="col-span-full text-center text-ink/50 py-10 font-body text-sm">
+                            No top rated listings available right now.
+                        </p>`;
+
+                    return;
+                }
+
+                grid.innerHTML = items.map(item => `
+
+                    <article class="card-3d bg-white/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/80">
+
+                        <div class="aspect-[4/3] overflow-hidden bg-white/40 relative">
+
+                            <img
+                                src="${item.thumbnail}"
+                                alt="${item.title}"
+                                class="w-full h-full object-cover"
+                            >
+
+                            <span class="absolute top-2 right-2 bg-clay text-white text-[10px] font-head font-semibold flex items-center gap-1 px-2.5 py-1 rounded-full shadow-sm">
+                                ★ ${item.rating}
+                            </span>
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-head font-semibold text-ink text-sm line-clamp-1 mb-1">
+                                ${item.title}
+                            </h3>
+
+                            <div class="flex justify-between items-center">
+
+                                <span class="font-head font-bold text-clay text-sm">
+                                    $${item.price}
+                                </span>
+
+                                <span class="text-[11px] text-ink/40 font-body">
+                                    ${item.stock} in stock
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `).join('');
+
+            } catch (err) {
+
+                console.error('Error fetching top rated listings:', err);
+
+                grid.innerHTML =
+                    `<p class="col-span-full text-center text-clay py-10 font-body text-sm">
+                        Failed to load top rated listings.
+                    </p>`;
+
+            }
+
+        }
+
+
+        async function loadBumperDeals() {
+
+            const grid = document.getElementById('bumperDealsGrid');
+
+            if (!grid) {
+                return;
+            }
+
+            try {
+
+                const res = await fetch('https://dummyjson.com/products?limit=100');
+
+                const data = await res.json();
+
+                const items = (data.products || [])
+                    .slice()
+                    .sort((a, b) => a.price - b.price)
+                    .slice(0, 4);
+
+                if (items.length === 0) {
+
+                    grid.innerHTML =
+                        `<p class="col-span-full text-center text-ink/50 py-10 font-body text-sm">
+                            No deals available right now.
+                        </p>`;
+
+                    return;
+                }
+
+                grid.innerHTML = items.map(item => `
+
+                    <article class="card-3d bg-white/80 backdrop-blur-md rounded-2xl overflow-hidden border border-forest/20 relative">
+
+                        <div class="aspect-[4/3] overflow-hidden bg-white/40 relative">
+
+                            <img
+                                src="${item.thumbnail}"
+                                alt="${item.title}"
+                                class="w-full h-full object-cover"
+                            >
+
+                            <span class="absolute top-2 left-2 bg-forest text-white text-[10px] font-head font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                                Bumper Deal
+                            </span>
+
+                            ${item.discountPercentage ? `
+                            <span class="absolute top-2 right-2 bg-clay text-white text-[10px] font-head font-semibold px-2 py-0.5 rounded-full shadow-sm">
+                                -${Math.round(item.discountPercentage)}%
+                            </span>` : ''}
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-head font-semibold text-ink text-sm line-clamp-1 mb-1">
+                                ${item.title}
+                            </h3>
+
+                            <div class="flex justify-between items-center">
+
+                                <span class="font-head font-bold text-forest text-base">
+                                    $${item.price}
+                                </span>
+
+                                <span class="text-[11px] text-ink/40 font-body">
+                                    ${item.stock} in stock
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `).join('');
+
+            } catch (err) {
+
+                console.error('Error fetching bumper deals:', err);
+
+                grid.innerHTML =
+                    `<p class="col-span-full text-center text-clay py-10 font-body text-sm">
+                        Failed to load bumper deals.
+                    </p>`;
+
+            }
+
+        }
+
+
+        function runSearch() {
+            loadDummyListings();
+        }
+
+
+        function filterByCategory(cat) {
+
+            renderChips(cat);
+
+            loadDummyListings();
+
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            renderChips('All');
+
+            loadDummyListings();
+
+            loadTopRated();
+
+            loadBumperDeals();
+
+        });
+
+    </script>
+
+
+    <!-- FOOTER -->
+
+    <footer class="border-t border-ink/10 bg-white/90 backdrop-blur-md mt-auto z-10 relative">
+
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+                <div>
+
+                    <a
+                        href="index.html"
+                        class="font-head font-bold text-xl tracking-tight text-ink block mb-3"
+                    >
+                        DN Directory
+                    </a>
+
+                    <p class="text-sm text-ink/60 font-body leading-relaxed max-w-xs">
+                        Buy and sell locally with your community.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
+                        Explore
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a href="search.html" class="text-forest font-semibold transition-colors">
+                                Search
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="category.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Categories
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="map.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Map View
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="submit-listing.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Submit Listing
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
+                        Company
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a href="aboutus.html" class="text-ink/70 hover:text-forest transition-colors">
+                                About Us
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="contactus.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Contact Us
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="text-ink/70 hover:text-forest transition-colors">
+                                Privacy Policy
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
+                        Account
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a href="account.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Sign In
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="account.html" class="text-ink/70 hover:text-forest transition-colors">
+                                Sign Up
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-12 pt-7 border-t border-ink/10">
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+                    <p class="text-xs text-ink/60 font-body">
+                        © 2026 DN Directory. All rights reserved.
+                    </p>
+
+                    <p class="text-xs text-ink/60 font-body">
+                        Designed and Developed by
+                        <a
+                            href="https://www.dignexus.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-forest font-semibold hover:underline"
+                        >
+                            Diginexus
+                        </a>
+                    </p>
+
+                </div>
+
+
+                <div class="flex items-center gap-3 mt-6">
+
+                    <!-- Facebook -->
+
+                    <a
+                        href="https://www.facebook.com/r.php"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook Sign Up"
+                        class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- Instagram -->
+
+                    <a
+                        href="https://www.instagram.com/accounts/emailsignup/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram Sign Up"
+                        class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+
+                            <rect
+                                x="3"
+                                y="3"
+                                width="18"
+                                height="18"
+                                rx="5"
+                            />
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                            />
+
+                            <circle
+                                cx="17.5"
+                                cy="6.5"
+                                r="1"
+                            />
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- LinkedIn -->
+
+                    <a
+                        href="https://www.linkedin.com/signup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn Sign Up"
+                        class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/>
+
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us - DN Directory</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+
+        colors: {
+          ink: '#1B211D',
+          surface: '#F1F3EF',
+          forest: '#3D6B52',
+          forestDark: '#2E5140',
+          clay: '#B65C2E',
+        },
+
+        fontFamily: {
+          head: ['"Space Grotesk"', 'sans-serif'],
+          body: ['"Inter"', 'sans-serif'],
+        },
+
+      }
+    }
+  }
+</script>
+
+</head>
+
+
+<body class="font-body bg-white text-ink min-h-screen flex flex-col pt-20">
+
+
+<!-- ========================================================= -->
+<!-- FIXED NAVBAR                                              -->
+<!-- ========================================================= -->
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-ink/10">
+
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center">
+
+            <!-- Logo -->
+            <a
+                href="index.html"
+                class="font-head font-bold text-xl tracking-tight text-ink"
+            >
+                 Directory
+            </a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
+                <a href="index.html" class="hover:text-ink transition-colors">
+                    Home
+                </a>
+
+                <a href="search.html" class="hover:text-ink transition-colors">
+                    Search
+                </a>
+
+                <a href="aboutus.html" class="hover:text-ink transition-colors font-semibold text-ink">
+                    About Us
+                </a>
+
+                <a href="map.html" class="hover:text-ink transition-colors">
+                    Map
+                </a>
+
+                <a href="submit-listing.html" class="hover:text-ink transition-colors">
+                    Submit Listing
+                </a>
+
+            </nav>
+
+            <!-- Right side: Contact Us + Account -->
+            <div class="justify-self-end flex items-center gap-6">
+
+                <a
+                    href="contactus.html"
+                    class="hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
+                >
+                    Contact Us
+                </a>
+
+                <a
+                    href="account.html"
+                    aria-label="Account"
+                    class="w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                        />
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+<!-- ========================================================= -->
+<!-- MAIN CONTENT                                               -->
+<!-- ========================================================= -->
+
+<main class="flex-grow">
+
+
+  <!-- ABOUT HEADER -->
+
+  <section class="max-w-7xl mx-auto px-6 pt-12 pb-10">
+
+    <div class="max-w-3xl">
+
+      <span
+        class="font-head font-600 text-sm text-forest uppercase tracking-wider block mb-2"
+      >
+        About DN Directory
+      </span>
+
+
+      <h1
+        class="font-head font-700 text-3xl sm:text-4xl md:text-5xl leading-tight text-ink mb-6"
+      >
+        Connecting neighborhoods, one listing at a time
+      </h1>
+
+
+      <p
+        class="font-body text-base md:text-lg text-ink/70 leading-relaxed"
+      >
+        Welcome to DN Directory! We are a dedicated team committed to connecting people with local businesses, services, and community listings. Our mission is to provide a seamless platform where neighbors can easily trade, find services, and build stronger local ties.
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- WHY CHOOSE US -->
+
+  <section
+    class="max-w-7xl mx-auto px-6 py-12 border-t border-ink/10"
+  >
+
+    <h2
+      class="font-head font-700 text-2xl md:text-3xl text-ink mb-8"
+    >
+      Why choose DN Directory
+    </h2>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+
+      <!-- CARD 1 -->
+
+      <div class="bg-surface rounded-xl p-6 border border-ink/5">
+
+        <div
+          class="w-10 h-10 rounded-lg bg-forest/10 flex items-center justify-center text-forest mb-4 font-head font-700"
+        >
+          01
+        </div>
+
+
+        <h3
+          class="font-head font-600 text-lg text-ink mb-2"
+        >
+          Local First
+        </h3>
+
+
+        <p
+          class="font-body text-sm text-ink/60 leading-relaxed"
+        >
+          We focus exclusively on hyper-local exchanges. Discover items, services, and cozy spots directly in your neighborhood.
+        </p>
+
+      </div>
+
+
+
+      <!-- CARD 2 -->
+
+      <div class="bg-surface rounded-xl p-6 border border-ink/5">
+
+        <div
+          class="w-10 h-10 rounded-lg bg-forest/10 flex items-center justify-center text-forest mb-4 font-head font-700"
+        >
+          02
+        </div>
+
+
+        <h3
+          class="font-head font-600 text-lg text-ink mb-2"
+        >
+          Simple & Fee-Free
+        </h3>
+
+
+        <p
+          class="font-body text-sm text-ink/60 leading-relaxed"
+        >
+          No middleman fees or complex algorithms. Browse freely and connect directly with buyers or sellers in your area.
+        </p>
+
+      </div>
+
+
+
+      <!-- CARD 3 -->
+
+      <div class="bg-surface rounded-xl p-6 border border-ink/5">
+
+        <div
+          class="w-10 h-10 rounded-lg bg-forest/10 flex items-center justify-center text-forest mb-4 font-head font-700"
+        >
+          03
+        </div>
+
+
+        <h3
+          class="font-head font-600 text-lg text-ink mb-2"
+        >
+          Community Driven
+        </h3>
+
+
+        <p
+          class="font-body text-sm text-ink/60 leading-relaxed"
+        >
+          Built for real people. Whether finding a trusted plumber or passing down pre-loved furniture, community trust is our core.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- STATS -->
+
+  <section
+    class="max-w-7xl mx-auto px-6 py-8"
+  >
+
+    <div
+      class="bg-surface rounded-2xl p-8 sm:p-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+    >
+
+
+      <div>
+
+        <p
+          class="font-head font-700 text-3xl sm:text-4xl text-clay mb-1"
+        >
+          1,200+
+        </p>
+
+        <p
+          class="font-body text-xs sm:text-sm text-ink/60"
+        >
+          Active listings
+        </p>
+
+      </div>
+
+
+
+      <div>
+
+        <p
+          class="font-head font-700 text-3xl sm:text-4xl text-clay mb-1"
+        >
+          40+
+        </p>
+
+        <p
+          class="font-body text-xs sm:text-sm text-ink/60"
+        >
+          Neighborhoods covered
+        </p>
+
+      </div>
+
+
+
+      <div>
+
+        <p
+          class="font-head font-700 text-3xl sm:text-4xl text-clay mb-1"
+        >
+          No fees
+        </p>
+
+        <p
+          class="font-body text-xs sm:text-sm text-ink/60"
+        >
+          To list or browse
+        </p>
+
+      </div>
+
+
+
+      <div>
+
+        <p
+          class="font-head font-700 text-3xl sm:text-4xl text-clay mb-1"
+        >
+          24 hrs
+        </p>
+
+        <p
+          class="font-body text-xs sm:text-sm text-ink/60"
+        >
+          Avg. seller response
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- CTA -->
+
+  <section
+    class="max-w-7xl mx-auto px-6 py-12"
+  >
+
+    <div
+      class="bg-forest text-white rounded-2xl p-8 md:p-12 text-center flex flex-col items-center"
+    >
+
+      <h2
+        class="font-head font-700 text-2xl md:text-3xl mb-4"
+      >
+        Ready to join your local directory?
+      </h2>
+
+
+      <p
+        class="font-body text-sm text-white/80 max-w-md mb-6"
+      >
+        Explore listings near you or post your own in just a few clicks.
+      </p>
+
+
+      <div
+        class="flex flex-col sm:flex-row gap-4"
+      >
+
+        <a
+          href="search.html"
+          class="px-6 py-3 rounded-lg bg-white text-forest font-head font-600 text-sm hover:bg-surface transition-colors"
+        >
+          Browse Listings
+        </a>
+
+
+        <a
+          href="submit-listing.html"
+          class="px-6 py-3 rounded-lg border border-white/30 text-white font-head font-600 text-sm hover:bg-forestDark transition-colors"
+        >
+          Submit a Listing
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- ========================================================= -->
+<!-- FOOTER                                                     -->
+<!-- ========================================================= -->
+
+<footer class="border-t border-ink/10 bg-white mt-auto">
+
+  <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
+
+
+    <!-- FOOTER COLUMNS -->
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10"
+    >
+
+
+      <!-- BRAND -->
+
+      <div>
+
+        <a
+          href="index.html"
+          class="font-head font-700 text-xl tracking-tight text-ink block mb-3"
+        >
+          DN Directory
+        </a>
+
+
+        <p
+          class="text-sm text-ink/60 font-body leading-relaxed max-w-xs"
+        >
+          Buy and sell locally with your community.
+        </p>
+
+      </div>
+
+
+
+      <!-- EXPLORE -->
+
+      <div>
+
+        <h3
+          class="font-head font-700 text-sm text-ink uppercase tracking-wider mb-5"
+        >
+          Explore
+        </h3>
+
+
+        <ul
+          class="space-y-3 text-sm font-body"
+        >
+
+          <li>
+            <a
+              href="search.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Search
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="category.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Categories
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="map.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Map View
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="submit-listing.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Submit Listing
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+      <!-- COMPANY -->
+
+      <div>
+
+        <h3
+          class="font-head font-700 text-sm text-ink uppercase tracking-wider mb-5"
+        >
+          Company
+        </h3>
+
+
+        <ul
+          class="space-y-3 text-sm font-body"
+        >
+
+          <li>
+            <a
+              href="aboutus.html"
+              class="text-forest font-600 transition-colors"
+            >
+              About Us
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="contactus.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Contact Us
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="#"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Privacy Policy
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+      <!-- ACCOUNT -->
+
+      <div>
+
+        <h3
+          class="font-head font-700 text-sm text-ink uppercase tracking-wider mb-5"
+        >
+          Account
+        </h3>
+
+
+        <ul
+          class="space-y-3 text-sm font-body"
+        >
+
+          <li>
+            <a
+              href="account.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Sign In
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="account.html"
+              class="text-ink/70 hover:text-forest transition-colors"
+            >
+              Sign Up
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div
+      class="mt-12 pt-7 border-t border-ink/10"
+    >
+
+
+      <!-- COPYRIGHT + DIGINEXUS -->
+
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+      >
+
+        <p
+          class="text-xs text-ink/50 font-body"
+        >
+          © 2026 DN Directory. All rights reserved.
+        </p>
+
+
+        <p
+          class="text-xs text-ink/50 font-body"
+        >
+          Designed and Developed by
+
+          <a
+            href="https://www.dignexus.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-forest font-600 hover:underline transition-colors"
+          >
+            Diginexus
+          </a>
+
+        </p>
+
+      </div>
+
+
+
+      <!-- SOCIAL ICONS -->
+
+      <div
+        class="flex items-center gap-3 mt-6"
+      >
+
+
+        <!-- FACEBOOK -->
+
+        <a
+          href="https://www.facebook.com/r.php"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook Sign Up"
+          class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest hover:border-forest/30 transition-colors"
+        >
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+
+            <path
+              d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"
+            />
+
+          </svg>
+
+        </a>
+
+
+
+        <!-- INSTAGRAM -->
+
+        <a
+          href="https://www.instagram.com/accounts/emailsignup/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram Sign Up"
+          class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest hover:border-forest/30 transition-colors"
+        >
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="5"
+            />
+
+            <circle
+              cx="12"
+              cy="12"
+              r="4"
+            />
+
+            <circle
+              cx="17.5"
+              cy="6.5"
+              r="1"
+            />
+
+          </svg>
+
+        </a>
+
+
+
+        <!-- LINKEDIN -->
+
+        <a
+          href="https://www.linkedin.com/signup"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Sign Up"
+          class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest hover:border-forest/30 transition-colors"
+        >
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+
+            <path
+              d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"
+            />
+
+          </svg>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | DN Directory</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        head: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif']
+                    },
+
+                    colors: {
+                        ink: '#1B211D',
+                        surface: '#F1F3EF',
+                        forest: '#3D6B52',
+                        forestDark: '#2E5140',
+                        clay: '#B65C2E',
+
+                        brand: {
+                            bg: '#f4f5f0',
+                            green: '#3c6e52',
+                            orange: '#c35b36',
+                            dark: '#1a1a1a',
+                            muted: '#5e5e5e',
+                            border: '#dcded7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="bg-brand-bg text-brand-dark font-sans antialiased flex flex-col min-h-screen pt-20">
+
+    <!-- FIXED NAVBAR -->
+
+   <header class="fixed top-0 left-0 right-0 z-50 bg-brand-bg/95 backdrop-blur-sm border-b border-brand-border">
+
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center">
+
+            <!-- Logo -->
+            <a
+                href="index.html"
+                class="font-head font-bold text-xl tracking-tight text-ink"
+            >
+                 Directory
+            </a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-brand-muted">
+                <a href="index.html" class="hover:text-brand-dark transition-colors">
+                    Home
+                </a>
+
+                <a href="search.html" class="hover:text-brand-dark transition-colors">
+                    Search
+                </a>
+
+                <a href="aboutus.html" class="hover:text-brand-dark transition-colors">
+                    About Us
+                </a>
+
+                <a href="map.html" class="hover:text-brand-dark transition-colors">
+                    Map
+                </a>
+
+                <a href="submit-listing.html" class="hover:text-brand-dark transition-colors">
+                    Submit Listing
+                </a>
+
+            </nav>
+
+            <!-- Right side: Contact Us + Account -->
+            <div class="justify-self-end flex items-center gap-6">
+
+                <a
+                    href="contactus.html"
+                    class="hidden md:inline text-[15px] font-medium text-brand-muted hover:text-brand-dark transition-colors"
+                >
+                    Contact Us
+                </a>
+
+                <a
+                    href="account.html"
+                    aria-label="Account"
+                    class="w-9 h-9 flex items-center justify-center text-brand-green transition-colors"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
+                        />
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ACCOUNT CONTENT -->
+
+    <main class="max-w-[1200px] mx-auto px-6 md:px-0 py-14 md:py-16 flex-grow w-full">
+
+        <div class="max-w-4xl mx-auto">
+
+            <div class="mb-10">
+                <p class="text-brand-green text-xs font-head font-semibold uppercase tracking-wider mb-3">
+                    Account
+                </p>
+                <h1 class="text-4xl md:text-5xl font-head font-bold tracking-tight text-brand-dark">
+                    My Account
+                </h1>
+                <p class="text-brand-muted mt-3 max-w-2xl leading-relaxed">
+                    Manage your personal details and keep track of the listings you've submitted.
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-8 border-b border-brand-border">
+
+                <button
+                    id="tabDetails"
+                    onclick="switchTab('details')"
+                    class="pb-4 font-head font-semibold text-sm border-b-2 border-brand-green text-brand-dark"
+                >
+                    Personal Details
+                </button>
+
+                <button
+                    id="tabListings"
+                    onclick="switchTab('listings')"
+                    class="pb-4 font-head font-semibold text-sm border-b-2 border-transparent text-brand-muted hover:text-brand-dark transition-colors"
+                >
+                    My Listings
+                </button>
+
+            </div>
+
+
+            <!-- Personal Details -->
+
+            <section id="panelDetails" class="pt-10">
+
+                <div class="border border-brand-border rounded-[24px] p-6 md:p-8 bg-white">
+
+                    <div class="mb-8">
+                        <h2 class="text-xl font-head font-bold tracking-tight">Personal details</h2>
+                        <p class="text-sm text-brand-muted mt-2">
+                            Update the information associated with your account.
+                        </p>
+                    </div>
+
+                    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); saveDetails();">
+
+                        <div>
+                            <label for="fullName" class="block font-head font-semibold text-sm mb-2">
+                                Full name
+                            </label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                value="Hrishi Kumar"
+                                class="w-full px-4 py-3 rounded-lg border border-brand-border bg-white text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="email" class="block font-head font-semibold text-sm mb-2">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                value="hrishi@dignexus.in"
+                                class="w-full px-4 py-3 rounded-lg border border-brand-border bg-white text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block font-head font-semibold text-sm mb-2">
+                                Phone
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="+91 00000 00000"
+                                class="w-full px-4 py-3 rounded-lg border border-brand-border bg-white text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="address" class="block font-head font-semibold text-sm mb-2">
+                                Address
+                            </label>
+                            <input
+                                type="text"
+                                id="address"
+                                placeholder="Your local address"
+                                class="w-full px-4 py-3 rounded-lg border border-brand-border bg-white text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green"
+                            >
+                        </div>
+
+                        <div class="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+                            <button
+                                type="submit"
+                                class="inline-flex items-center justify-center bg-brand-green text-white font-head font-semibold py-3 px-6 rounded-lg hover:bg-[#2f5740] transition-colors"
+                            >
+                                Save changes
+                            </button>
+
+                            <p id="savedNote" class="hidden text-sm text-brand-green font-head font-semibold">
+                                Your changes have been saved.
+                            </p>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- My Listings -->
+
+            <section id="panelListings" class="pt-10 hidden">
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-head font-bold tracking-tight">My listings</h2>
+                        <p class="text-sm text-brand-muted mt-2">
+                            Listings you've submitted through DN Directory.
+                        </p>
+                    </div>
+
+                    <a
+                        href="submit-listing.html"
+                        class="inline-flex items-center justify-center bg-brand-green text-white font-head font-semibold py-3 px-5 rounded-lg hover:bg-[#2f5740] transition-colors text-sm"
+                    >
+                        + New listing
+                    </a>
+                </div>
+
+                <div id="myListingsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                <p id="myListingsEmpty" class="hidden text-center text-brand-muted py-16 text-sm">
+                    You haven't submitted any listings yet.
+                    <a href="submit-listing.html" class="text-brand-green font-head font-semibold hover:underline">
+                        Create your first one
+                    </a>.
+                </p>
+
+            </section>
+
+
+            <!-- CTA -->
+
+            <section class="pt-16 pb-8">
+
+                <div class="border border-brand-border rounded-[24px] py-14 px-6 text-center bg-transparent">
+
+                    <h2 class="text-3xl font-head font-bold mb-4 tracking-tight">
+                        Ready to join your local directory?
+                    </h2>
+
+                    <p class="text-brand-muted mb-8 max-w-xl mx-auto text-[15px]">
+                        Explore listings near you or post your own in just a few clicks.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+
+                        <a
+                            href="search.html"
+                            class="inline-block bg-brand-green text-white font-head font-semibold py-3 px-6 rounded-lg hover:bg-[#2f5740] transition-colors"
+                        >
+                            Browse Listings
+                        </a>
+
+                        <a
+                            href="submit-listing.html"
+                            class="inline-block border border-brand-border text-brand-dark font-head font-semibold py-3 px-6 rounded-lg hover:bg-brand-bg transition-colors"
+                        >
+                            Submit a listing
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="border-t border-brand-border bg-white mt-auto">
+
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+                <div>
+
+                    <a
+                        href="index.html"
+                        class="font-head font-bold text-xl tracking-tight text-brand-dark block mb-3"
+                    >
+                        DN Directory
+                    </a>
+
+                    <p class="text-sm text-brand-muted font-body leading-relaxed max-w-xs">
+                        Buy and sell locally with your community.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                        Explore
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a
+                                href="search.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Search
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="category.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Categories
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="map.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Map View
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="submit-listing.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Submit Listing
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                        Company
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a
+                                href="aboutus.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                About Us
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="contactus.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Contact Us
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Privacy Policy
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                        Account
+                    </h3>
+
+                    <ul class="space-y-3 text-sm font-body">
+
+                        <li>
+                            <a
+                                href="account.html"
+                                class="text-brand-green font-semibold transition-colors"
+                            >
+                                Sign In
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="account.html"
+                                class="text-brand-muted hover:text-brand-green transition-colors"
+                            >
+                                Sign Up
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-12 pt-7 border-t border-brand-border">
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+                    <p class="text-xs text-brand-muted font-body">
+                        © 2026 DN Directory. All rights reserved.
+                    </p>
+
+                    <p class="text-xs text-brand-muted font-body">
+                        Designed and Developed by
+                        <a
+                            href="https://www.dignexus.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-brand-green font-semibold hover:underline"
+                        >
+                            Diginexus
+                        </a>
+                    </p>
+
+                </div>
+
+
+                <div class="flex items-center gap-3 mt-6">
+
+                    <!-- Facebook -->
+
+                    <a
+                        href="https://www.facebook.com/r.php"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- Instagram -->
+
+                    <a
+                        href="https://www.instagram.com/accounts/emailsignup/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+
+                            <rect
+                                x="3"
+                                y="3"
+                                width="18"
+                                height="18"
+                                rx="5"
+                            />
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                            />
+
+                            <circle
+                                cx="17.5"
+                                cy="6.5"
+                                r="1"
+                            />
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- LinkedIn -->
+
+                    <a
+                        href="https://www.linkedin.com/signup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/>
+
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        const myListings = [
+            {
+                id: 1,
+                title: "Solid Oak Dining Table",
+                price: 240,
+                status: "Live",
+                img: "https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 5,
+                title: "Wooden Bookshelf",
+                price: 95,
+                status: "Pending review",
+                img: "https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&q=80&w=600"
+            }
+        ];
+
+        function switchTab(tab) {
+            const isDetails = tab === 'details';
+
+            document.getElementById('panelDetails').classList.toggle('hidden', !isDetails);
+            document.getElementById('panelListings').classList.toggle('hidden', isDetails);
+
+            const detailsTab = document.getElementById('tabDetails');
+            const listingsTab = document.getElementById('tabListings');
+
+            detailsTab.classList.toggle('border-brand-green', isDetails);
+            detailsTab.classList.toggle('text-brand-dark', isDetails);
+            detailsTab.classList.toggle('border-transparent', !isDetails);
+            detailsTab.classList.toggle('text-brand-muted', !isDetails);
+
+            listingsTab.classList.toggle('border-brand-green', !isDetails);
+            listingsTab.classList.toggle('text-brand-dark', !isDetails);
+            listingsTab.classList.toggle('border-transparent', isDetails);
+            listingsTab.classList.toggle('text-brand-muted', isDetails);
+        }
+
+        function saveDetails() {
+            const note = document.getElementById('savedNote');
+            note.classList.remove('hidden');
+
+            setTimeout(() => {
+                note.classList.add('hidden');
+            }, 2500);
+        }
+
+        function renderMyListings() {
+            const grid = document.getElementById('myListingsGrid');
+            const empty = document.getElementById('myListingsEmpty');
+
+            if (myListings.length === 0) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            grid.classList.remove('hidden');
+
+            grid.innerHTML = myListings.map(item => `
+                <div class="border border-brand-border rounded-2xl overflow-hidden bg-white">
+                    <div class="flex gap-4 p-4">
+                        <img
+                            src="${item.img}"
+                            alt="${item.title}"
+                            class="w-24 h-20 rounded-lg object-cover shrink-0"
+                        >
+
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <p class="font-head font-bold text-sm truncate text-brand-dark">
+                                        ${item.title}
+                                    </p>
+                                    <p class="font-head font-bold text-sm text-brand-orange mt-1">
+                                        $${item.price}
+                                    </p>
+                                </div>
+
+                                <a
+                                    href="listing.html?id=${item.id}"
+                                    class="text-xs font-head font-semibold text-brand-green hover:underline shrink-0"
+                                >
+                                    View
+                                </a>
+                            </div>
+
+                            <span class="inline-flex mt-3 px-2.5 py-1 rounded-full text-xs font-head font-semibold ${
+                                item.status === 'Live'
+                                    ? 'bg-brand-green/10 text-brand-green'
+                                    : 'bg-brand-orange/10 text-brand-orange'
+                            }">
+                                ${item.status}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderMyListings();
+
+    </script>
+
+</body>
+</html>
