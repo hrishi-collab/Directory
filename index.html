@@ -68,23 +68,23 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
-            <a href="index.html" class="hover:text-ink transition-colors">
+            <a href="index.html" class="nav-link hover:text-ink transition-colors">
                 Home
             </a>
 
-            <a href="search.html" class="hover:text-ink font-semibold text-ink transition-colors">
+            <a href="search.html" class="nav-link hover:text-ink transition-colors">
                 Search
             </a>
 
-            <a href="aboutus.html" class="hover:text-ink transition-colors">
+            <a href="aboutus.html" class="nav-link hover:text-ink transition-colors">
                 About Us
             </a>
 
-            <a href="map.html" class="hover:text-ink transition-colors">
+            <a href="map.html" class="nav-link hover:text-ink transition-colors">
                 Map
             </a>
 
-            <a href="submit-listing.html" class="hover:text-ink transition-colors">
+            <a href="submit-listing.html" class="nav-link hover:text-ink transition-colors">
                 Submit Listing
             </a>
         </nav>
@@ -94,7 +94,7 @@
 
             <a
                 href="contactus.html"
-                class="hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
+                class="nav-link hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
             >
                 Contact Us
             </a>
@@ -145,23 +145,23 @@
 
     <!-- Mobile Menu Drawer (Hidden by default) -->
     <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/10 shadow-lg px-6 py-6 flex flex-col gap-4 text-base font-medium text-ink/80 transition-all">
-        <a href="index.html" class="hover:text-ink transition-colors py-1">
+        <a href="index.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Home
         </a>
-        <a href="search.html" class="font-semibold text-ink transition-colors py-1">
+        <a href="search.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Search
         </a>
-        <a href="aboutus.html" class="hover:text-ink transition-colors py-1">
+        <a href="aboutus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             About Us
         </a>
-        <a href="map.html" class="hover:text-ink transition-colors py-1">
+        <a href="map.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Map
         </a>
-        <a href="submit-listing.html" class="hover:text-ink transition-colors py-1">
+        <a href="submit-listing.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Submit Listing
         </a>
         <hr class="border-ink/10 my-1">
-        <a href="contactus.html" class="hover:text-ink transition-colors py-1">
+        <a href="contactus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Contact Us
         </a>
     </div>
@@ -860,6 +860,9 @@
             startTimer();
         }
 
+        // Initialize Carousel Auto-play
+        startTimer();
+
         // Featured Listings Logic
         const featuredListings = [
             {
@@ -904,60 +907,90 @@
 
         function renderListings() {
             const container = document.getElementById('featuredListingsContainer');
-            const items = activeCategory === 'all' 
+            const filtered = activeCategory === 'all' 
                 ? featuredListings 
                 : featuredListings.filter(item => item.category === activeCategory);
 
-            container.innerHTML = items.map(item => `
-                <div class="group border border-brand-border rounded-xl bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
-                    <div>
-                        <div class="relative w-full h-48 overflow-hidden bg-zinc-100">
-                            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-head font-semibold text-brand-dark">
-                                ${item.category}
-                            </span>
-                            <span class="absolute bottom-3 right-3 bg-brand-dark text-white px-3 py-1 rounded-lg text-xs font-head font-bold">
-                                ${item.price}
-                            </span>
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-brand-muted py-8">No listings found for this category.</p>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <a href="listing.html?id=${item.id}" class="group border border-brand-border rounded-2xl overflow-hidden bg-white hover:border-brand-green/50 transition-all flex flex-col">
+                    <div class="relative aspect-[4/3] bg-surface overflow-hidden">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-brand-dark text-xs font-head font-bold px-2.5 py-1 rounded-full shadow-sm">
+                            ${item.price}
+                        </span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <p class="text-xs font-head font-semibold text-brand-green mb-1 uppercase tracking-wider">${item.category}</p>
+                            <h3 class="font-head font-bold text-base text-brand-dark group-hover:text-brand-green transition-colors line-clamp-1">${item.title}</h3>
                         </div>
-                        <div class="p-4">
-                            <div class="flex items-center justify-between text-[11px] text-brand-muted mb-1.5">
-                                <span>${item.location}</span>
-                                <span>${item.time}</span>
-                            </div>
-                            <h3 class="font-head font-bold text-base text-brand-dark line-clamp-1 group-hover:text-brand-green transition-colors">
-                                ${item.title}
-                            </h3>
+                        <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-brand-muted">
+                            <span>${item.location}</span>
+                            <span>${item.time}</span>
                         </div>
                     </div>
-                    <div class="px-4 pb-4 pt-0">
-                        <a href="search.html" class="w-full py-2 flex items-center justify-center gap-1.5 border border-brand-border rounded-lg text-xs font-head font-semibold text-brand-dark group-hover:bg-brand-green group-hover:text-white group-hover:border-brand-green transition-colors">
-                            <span>View Details</span>
-                            <span>→</span>
-                        </a>
-                    </div>
-                </div>
+                </a>
             `).join('');
         }
 
-        function filterListings(cat) {
-            activeCategory = cat;
-            const buttons = document.querySelectorAll('#categoryFilters button');
-            buttons.forEach(btn => {
-                if (btn.id === `btn-${cat}`) {
+        function filterListings(category) {
+            activeCategory = category;
+            
+            // Update filter button states
+            ['all', 'Furniture', 'Electronics', 'Vehicles'].forEach(cat => {
+                const btn = document.getElementById(`btn-${cat}`);
+                if (cat === category) {
                     btn.className = "px-4 py-2 rounded-full bg-brand-green text-white shadow-sm transition-all font-head font-semibold";
                 } else {
                     btn.className = "px-4 py-2 rounded-full bg-white border border-brand-border text-brand-muted hover:text-brand-dark transition-all font-head font-semibold";
                 }
             });
+
             renderListings();
         }
 
-        // Initialize carousel timer and load listings on DOM load
-        document.addEventListener('DOMContentLoaded', () => {
-            startTimer();
-            renderListings();
-        });
+        // Render initial listings
+        renderListings();
     </script>
+
+    <!-- Dynamic Navbar Active State Script -->
+    <script>
+      function highlightActiveNav() {
+        let currentPath = window.location.pathname.split("/").pop();
+        if (!currentPath) currentPath = "index.html";
+
+        // Highlight Desktop Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('font-semibold', 'text-ink');
+            link.classList.remove('text-ink/70');
+          } else {
+            link.classList.remove('font-semibold', 'text-ink');
+            link.classList.add('text-ink/70');
+          }
+        });
+
+        // Highlight Mobile Links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('font-semibold', 'text-ink');
+            link.classList.remove('text-ink/80');
+          } else {
+            link.classList.remove('font-semibold', 'text-ink');
+            link.classList.add('text-ink/80');
+          }
+        });
+      }
+
+      window.addEventListener('DOMContentLoaded', highlightActiveNav);
+    </script>
+
 </body>
 </html>

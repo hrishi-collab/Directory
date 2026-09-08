@@ -68,23 +68,23 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
-            <a href="index.html" class="hover:text-ink transition-colors">
+            <a href="index.html" class="nav-link hover:text-ink transition-colors">
                 Home
             </a>
 
-            <a href="search.html" class="hover:text-ink font-semibold text-ink transition-colors">
+            <a href="search.html" class="nav-link hover:text-ink transition-colors">
                 Search
             </a>
 
-            <a href="aboutus.html" class="hover:text-ink transition-colors">
+            <a href="aboutus.html" class="nav-link hover:text-ink transition-colors">
                 About Us
             </a>
 
-            <a href="map.html" class="hover:text-ink transition-colors">
+            <a href="map.html" class="nav-link hover:text-ink transition-colors">
                 Map
             </a>
 
-            <a href="submit-listing.html" class="hover:text-ink transition-colors">
+            <a href="submit-listing.html" class="nav-link hover:text-ink transition-colors">
                 Submit Listing
             </a>
         </nav>
@@ -94,7 +94,7 @@
 
             <a
                 href="contactus.html"
-                class="hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
+                class="nav-link hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
             >
                 Contact Us
             </a>
@@ -145,23 +145,23 @@
 
     <!-- Mobile Menu Drawer (Hidden by default) -->
     <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/10 shadow-lg px-6 py-6 flex flex-col gap-4 text-base font-medium text-ink/80 transition-all">
-        <a href="index.html" class="hover:text-ink transition-colors py-1">
+        <a href="index.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Home
         </a>
-        <a href="search.html" class="font-semibold text-ink transition-colors py-1">
+        <a href="search.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Search
         </a>
-        <a href="aboutus.html" class="hover:text-ink transition-colors py-1">
+        <a href="aboutus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             About Us
         </a>
-        <a href="map.html" class="hover:text-ink transition-colors py-1">
+        <a href="map.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Map
         </a>
-        <a href="submit-listing.html" class="hover:text-ink transition-colors py-1">
+        <a href="submit-listing.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Submit Listing
         </a>
         <hr class="border-ink/10 my-1">
-        <a href="contactus.html" class="hover:text-ink transition-colors py-1">
+        <a href="contactus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
             Contact Us
         </a>
     </div>
@@ -757,6 +757,40 @@
 
         renderMyListings();
 
+    </script>
+
+    <!-- Dynamic Navbar Active State Script -->
+    <script>
+      function highlightActiveNav() {
+        let currentPath = window.location.pathname.split("/").pop();
+        if (!currentPath) currentPath = "index.html";
+
+        // Highlight Desktop Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('font-semibold', 'text-ink');
+            link.classList.remove('text-ink/70');
+          } else {
+            link.classList.remove('font-semibold', 'text-ink');
+            link.classList.add('text-ink/70');
+          }
+        });
+
+        // Highlight Mobile Links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('font-semibold', 'text-ink');
+            link.classList.remove('text-ink/80');
+          } else {
+            link.classList.remove('font-semibold', 'text-ink');
+            link.classList.add('text-ink/80');
+          }
+        });
+      }
+
+      window.addEventListener('DOMContentLoaded', highlightActiveNav);
     </script>
 
 </body>
