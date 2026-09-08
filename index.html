@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>DN Directory | Buy and Sell Locally</title>
-
+    <title> Directory | Buy, Sell & Discover Locally</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -27,21 +21,19 @@
                         head: ['"Space Grotesk"', 'sans-serif'],
                         body: ['"Inter"', 'sans-serif']
                     },
-
                     colors: {
                         ink: '#1B211D',
                         surface: '#F1F3EF',
                         forest: '#3D6B52',
                         forestDark: '#2E5140',
                         clay: '#B65C2E',
-
                         brand: {
-                            bg: '#f4f5f0',
-                            green: '#3c6e52',
-                            orange: '#c35b36',
-                            dark: '#1a1a1a',
-                            muted: '#5e5e5e',
-                            border: '#dcded7'
+                            bg: '#F8F9F5',
+                            green: '#3C6E52',
+                            orange: '#C35B36',
+                            dark: '#1A1A1A',
+                            muted: '#5E5E5E',
+                            border: '#DCDED7'
                         }
                     }
                 }
@@ -49,948 +41,835 @@
         }
     </script>
 
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glow-effect {
+            background: radial-gradient(circle at 50% 0%, rgba(61, 107, 82, 0.08), transparent 70%);
+        }
+
+        /* ============ 3D DEPTH BACKGROUND (between hero and footer) ============ */
+        .depth-scene {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            perspective: 1400px;
+        }
+
+        .depth-scene__grid {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10%;
+            height: 55%;
+            background-image:
+                linear-gradient(rgba(61, 107, 82, 0.16) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61, 107, 82, 0.16) 1px, transparent 1px);
+            background-size: 64px 64px;
+            transform: rotateX(62deg) scale(1.6);
+            transform-origin: bottom center;
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 85%);
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 85%);
+        }
+
+        .depth-cube {
+            position: absolute;
+            width: var(--s, 64px);
+            height: var(--s, 64px);
+            transform-style: preserve-3d;
+            opacity: var(--o, 0.5);
+            filter: blur(var(--blur, 0px));
+            animation: depthFloat var(--dur, 12s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        .depth-cube__face {
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+        }
+
+        .depth-cube__face--top {
+            background: var(--c-top);
+            transform: rotateX(90deg) translateZ(calc(var(--s, 64px) / 2));
+        }
+
+        .depth-cube__face--front {
+            background: var(--c-front);
+            transform: translateZ(calc(var(--s, 64px) / 2));
+        }
+
+        .depth-cube__face--side {
+            background: var(--c-side);
+            transform: rotateY(90deg) translateZ(calc(var(--s, 64px) / 2));
+        }
+
+        @keyframes depthFloat {
+            0%, 100% {
+                transform: rotateX(-30deg) rotateY(38deg) translateY(0px);
+            }
+            50% {
+                transform: rotateX(-27deg) rotateY(43deg) translateY(-18px);
+            }
+        }
+
+        @keyframes depthFloatAlt {
+            0%, 100% {
+                transform: rotateX(-22deg) rotateY(-32deg) translateY(0px);
+            }
+            50% {
+                transform: rotateX(-25deg) rotateY(-27deg) translateY(-16px);
+            }
+        }
+
+        .depth-cube--alt {
+            animation-name: depthFloatAlt;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .depth-cube {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .depth-cube--desktop-only {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-brand-bg text-brand-dark font-sans antialiased flex flex-col min-h-screen pt-20">
+<body class="bg-brand-bg text-brand-dark font-sans antialiased flex flex-col min-h-screen pt-20 glow-effect">
 
     <!-- FIXED NAVBAR -->
-
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-ink/10">
-    <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
+        <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
 
-        <!-- Logo -->
-        <a
-            href="index.html"
-            class="font-head font-bold text-xl tracking-tight text-ink"
-        >
-             Directory
-        </a>
+            <!-- Logo -->
+            <a href="index.html" class="font-head font-bold text-xl tracking-tight text-ink">
+                 Directory
+            </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
-            <a href="index.html" class="nav-link hover:text-ink transition-colors">
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center justify-center gap-8 text-[15px] font-medium text-ink/70">
+                <a href="index.html" class="font-semibold text-ink transition-colors">
+                    Home
+                </a>
+
+                <a href="search.html" class="hover:text-ink transition-colors">
+                    Search
+                </a>
+
+                <a href="aboutus.html" class="hover:text-ink transition-colors">
+                    About Us
+                </a>
+
+                <a href="map.html" class="hover:text-ink transition-colors">
+                    Map
+                </a>
+
+                <a href="submit-listing.html" class="hover:text-ink transition-colors">
+                    Submit Listing
+                </a>
+            </nav>
+
+            <!-- Right side: Contact Us + Account + Mobile Menu Toggle -->
+            <div class="justify-self-end flex items-center gap-4 md:gap-6">
+
+                <a href="contactus.html" class="hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors">
+                    Contact Us
+                </a>
+
+                <a href="account.html" aria-label="Account" class="w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0" />
+                    </svg>
+                </a>
+
+                <!-- Mobile Menu Hamburger Button -->
+                <button id="menu-toggle" aria-label="Toggle Menu" class="md:hidden w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors focus:outline-none">
+                    <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/10 shadow-lg px-6 py-6 flex flex-col gap-4 text-base font-medium text-ink/80 transition-all">
+            <a href="index.html" class="font-semibold text-ink transition-colors py-1">
                 Home
             </a>
-
-            <a href="search.html" class="nav-link hover:text-ink transition-colors">
+            <a href="search.html" class="hover:text-ink transition-colors py-1">
                 Search
             </a>
-
-            <a href="aboutus.html" class="nav-link hover:text-ink transition-colors">
+            <a href="aboutus.html" class="hover:text-ink transition-colors py-1">
                 About Us
             </a>
-
-            <a href="map.html" class="nav-link hover:text-ink transition-colors">
+            <a href="map.html" class="hover:text-ink transition-colors py-1">
                 Map
             </a>
-
-            <a href="submit-listing.html" class="nav-link hover:text-ink transition-colors">
+            <a href="submit-listing.html" class="hover:text-ink transition-colors py-1">
                 Submit Listing
             </a>
-        </nav>
-
-        <!-- Right side: Contact Us + Account + Mobile Menu Toggle -->
-        <div class="justify-self-end flex items-center gap-4 md:gap-6">
-
-            <a
-                href="contactus.html"
-                class="nav-link hidden md:inline text-[15px] font-medium text-ink/70 hover:text-ink transition-colors"
-            >
+            <hr class="border-ink/10 my-1">
+            <a href="contactus.html" class="hover:text-ink transition-colors py-1">
                 Contact Us
             </a>
-
-            <a
-                href="account.html"
-                aria-label="Account"
-                class="w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0115 0"
-                    />
-                </svg>
-            </a>
-
-            <!-- Mobile Menu Hamburger Button -->
-            <button
-                id="menu-toggle"
-                aria-label="Toggle Menu"
-                class="md:hidden w-9 h-9 flex items-center justify-center text-ink hover:text-forest transition-colors focus:outline-none"
-            >
-                <svg
-                    id="menu-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-            </button>
-
         </div>
+    </header>
 
-    </div>
-
-    <!-- Mobile Menu Drawer (Hidden by default) -->
-    <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/10 shadow-lg px-6 py-6 flex flex-col gap-4 text-base font-medium text-ink/80 transition-all">
-        <a href="index.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            Home
-        </a>
-        <a href="search.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            Search
-        </a>
-        <a href="aboutus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            About Us
-        </a>
-        <a href="map.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            Map
-        </a>
-        <a href="submit-listing.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            Submit Listing
-        </a>
-        <hr class="border-ink/10 my-1">
-        <a href="contactus.html" class="mobile-nav-link hover:text-ink transition-colors py-1">
-            Contact Us
-        </a>
-    </div>
-</header>
-
-<!-- Simple Script to Handle Mobile Menu Toggle -->
-<script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        
-        // Switch between hamburger and close (X) icon dynamically
-        if (mobileMenu.classList.contains('hidden')) {
-            menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />';
-        } else {
-            menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />';
-        }
-    });
-</script>
-
-
-    <!-- CAROUSEL HERO SECTION -->
-
-    <section class="relative w-full overflow-hidden bg-brand-dark">
-
-        <!-- Image Slides -->
+    <!-- SECTION 1: HERO CAROUSEL -->
+    <section class="relative w-full h-[60vh] min-h-[480px] max-h-[620px] overflow-hidden bg-brand-dark flex items-center">
+        <!-- Background Carousel Slides -->
         <div id="heroCarousel" class="absolute inset-0 w-full h-full">
-
-            <!-- Slide 1: Neighborhood/Community -->
             <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-100">
-                <img 
-                    src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&q=80&w=1920" 
-                    alt="Community trade" 
-                    class="w-full h-full object-cover"
-                />
+                <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&q=80&w=1920" alt="Pottery and Craft Trade Workshop" class="w-full h-full object-cover scale-105 transition-transform duration-[10000ms] ease-out"/>
             </div>
-
-            <!-- Slide 2: Furniture & Vintage Trade -->
             <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1920" 
-                    alt="Local marketplace furniture" 
-                    class="w-full h-full object-cover"
-                />
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=1920" alt="Indian Textile Handloom Store" class="w-full h-full object-cover scale-105 transition-transform duration-[10000ms] ease-out"/>
             </div>
-
-            <!-- Slide 3: Electronics & Tech Goods -->
             <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&q=80&w=1920" 
-                    alt="Local electronics trade" 
-                    class="w-full h-full object-cover"
-                />
+                <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&q=80&w=1920" alt="Local Market Merchant Trade Stall" class="w-full h-full object-cover scale-105 transition-transform duration-[10000ms] ease-out"/>
             </div>
-
-            <!-- Slide 4: Bicycles & Mobility -->
             <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=1920" 
-                    alt="Used bikes and gear" 
-                    class="w-full h-full object-cover"
-                />
+                <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=1920" alt="Woodworking Craftsman Studio" class="w-full h-full object-cover scale-105 transition-transform duration-[10000ms] ease-out"/>
             </div>
-
+            <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 opacity-0">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920" alt="Local Grocery and Farm Trade Shop" class="w-full h-full object-cover scale-105 transition-transform duration-[10000ms] ease-out"/>
+            </div>
         </div>
 
-        <!-- Dark Gradient Overlays for High Legibility -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/30 z-10"></div>
 
-        <!-- Hero Content Container -->
-        <div class="relative z-20 max-w-[1400px] mx-auto px-6 py-24 sm:py-32 lg:py-40">
-
+        <div class="relative z-20 max-w-7xl mx-auto px-6 w-full">
             <div class="max-w-2xl">
-
-                <span class="inline-flex items-center gap-2 text-xs font-head font-semibold uppercase tracking-wider text-emerald-300 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 w-fit mb-6">
-
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-
-                    Local Neighborhood Network
-
+                <span class="inline-flex items-center text-xs font-head font-semibold uppercase tracking-wider text-emerald-300 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/15 mb-4 shadow-sm">
+                    India's Local Business Network
                 </span>
-
-                <h1 class="font-head text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.15]">
-
+                <h1 class="font-head text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4 leading-tight drop-shadow-md">
                     Connecting local buyers & sellers seamlessly
-
                 </h1>
-
-                <p class="text-base sm:text-lg text-zinc-200 mb-8 leading-relaxed font-normal">
-
-                     Directory is built on a simple purpose: keeping trade within local communities. Discover items nearby, exchange directly with neighbors, and support sustainable local commerce with zero hidden fees.
-
+                <p class="text-sm sm:text-base text-zinc-200 mb-8 leading-relaxed max-w-xl font-normal">
+                    Discover local artisan shops, trusted merchants, and pre-loved neighborhood finds. Trade directly with shops and neighbors in your locality with zero commission.
                 </p>
-
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-
-                    <a
-                        href="search.html"
-                        class="inline-flex items-center justify-center bg-brand-green text-white font-head font-semibold py-3.5 px-8 rounded-lg hover:bg-[#2f5740] transition-all shadow-lg group"
-                    >
-
-                        <span>Go to Listings</span>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                        >
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-
-                        </svg>
-
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="search.html" class="inline-flex items-center justify-center bg-brand-green text-white font-head font-semibold text-sm py-3.5 px-7 rounded-xl hover:bg-[#2f5740] transition-all shadow-lg hover:shadow-emerald-900/40 hover:-translate-y-0.5">
+                        Explore Listings →
                     </a>
-
-                    <a
-                        href="submit-listing.html"
-                        class="inline-flex items-center justify-center bg-white/10 backdrop-blur-md text-white font-head font-semibold py-3.5 px-8 rounded-lg hover:bg-white/20 border border-white/20 transition-all"
-                    >
-                        Sell an Item
+                    <a href="submit-listing.html" class="inline-flex items-center justify-center bg-white/10 backdrop-blur-md text-white font-head font-semibold text-sm py-3.5 px-7 rounded-xl hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-0.5">
+                        Register Your Business
                     </a>
-
                 </div>
-
             </div>
-
         </div>
 
-        <!-- Carousel Indicators & Nav Controls -->
-        <div class="absolute bottom-8 right-6 sm:right-12 z-20 flex items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-
-            <button onclick="prevSlide()" class="text-white/70 hover:text-white transition-colors p-1" aria-label="Previous slide">
-                ←
-            </button>
-
-            <div class="flex items-center gap-2" id="carouselIndicators">
-                <button onclick="goToSlide(0)" class="w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
-                <button onclick="goToSlide(1)" class="w-2.5 h-2.5 rounded-full bg-white/40 transition-all"></button>
-                <button onclick="goToSlide(2)" class="w-2.5 h-2.5 rounded-full bg-white/40 transition-all"></button>
-                <button onclick="goToSlide(3)" class="w-2.5 h-2.5 rounded-full bg-white/40 transition-all"></button>
-            </div>
-
-            <button onclick="nextSlide()" class="text-white/70 hover:text-white transition-colors p-1" aria-label="Next slide">
-                →
-            </button>
-
+        <!-- Carousel Indicators -->
+        <div class="absolute bottom-5 right-6 z-20 flex gap-2" id="carouselIndicators">
+            <span class="w-8 h-1.5 rounded-full bg-white transition-all duration-300 opacity-100"></span>
+            <span class="w-2.5 h-1.5 rounded-full bg-white/40 transition-all duration-300 opacity-60"></span>
+            <span class="w-2.5 h-1.5 rounded-full bg-white/40 transition-all duration-300 opacity-60"></span>
+            <span class="w-2.5 h-1.5 rounded-full bg-white/40 transition-all duration-300 opacity-60"></span>
+            <span class="w-2.5 h-1.5 rounded-full bg-white/40 transition-all duration-300 opacity-60"></span>
         </div>
-
     </section>
 
+    <!-- 3D DEPTH BACKGROUND WRAPPER: spans Section 2 through the pre-footer CTA -->
+    <div class="relative isolate">
 
-    <!-- FEATURED LISTINGS SHOWCASE SECTION -->
+        <div class="depth-scene" aria-hidden="true">
+            <div class="depth-scene__grid"></div>
 
-    <section class="max-w-[1400px] mx-auto px-6 py-16 w-full border-t border-brand-border/60">
+            <div class="depth-cube" style="--s:96px; --o:0.55; --dur:13s; --delay:0s; --blur:0px; --c-top:#5C8B70; --c-front:#3D6B52; --c-side:#2E5140; top:6%; left:4%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
 
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div class="depth-cube depth-cube--alt depth-cube--desktop-only" style="--s:70px; --o:0.5; --dur:9s; --delay:1.2s; --blur:0px; --c-top:#E08A5B; --c-front:#B65C2E; --c-side:#8F491F; top:16%; right:8%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
 
+            <div class="depth-cube depth-cube--desktop-only" style="--s:130px; --o:0.28; --dur:16s; --delay:2.4s; --blur:2px; --c-top:#5C8B70; --c-front:#3D6B52; --c-side:#2E5140; top:38%; left:-2%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
+
+            <div class="depth-cube depth-cube--alt" style="--s:58px; --o:0.55; --dur:8s; --delay:0.6s; --blur:0px; --c-top:#E08A5B; --c-front:#B65C2E; --c-side:#8F491F; bottom:30%; right:5%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
+
+            <div class="depth-cube depth-cube--desktop-only" style="--s:90px; --o:0.3; --dur:14s; --delay:3.6s; --blur:1px; --c-top:#5C8B70; --c-front:#3D6B52; --c-side:#2E5140; bottom:6%; left:14%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
+
+            <div class="depth-cube depth-cube--alt depth-cube--desktop-only" style="--s:62px; --o:0.4; --dur:10s; --delay:1.8s; --blur:0px; --c-top:#E08A5B; --c-front:#B65C2E; --c-side:#8F491F; bottom:14%; right:22%;">
+                <div class="depth-cube__face depth-cube__face--top"></div>
+                <div class="depth-cube__face depth-cube__face--front"></div>
+                <div class="depth-cube__face depth-cube__face--side"></div>
+            </div>
+        </div>
+
+    <!-- SECTION 2: TRUST & SAFETY CARD -->
+    <section class="max-w-7xl mx-auto px-6 py-16">
+        <div class="bg-forest text-white rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+                <div class="lg:col-span-7">
+                    <span class="inline-flex items-center gap-2 text-xs font-head font-semibold uppercase tracking-wider text-surface bg-white/10 px-3.5 py-1.5 rounded-full mb-4 border border-white/10">
+                        Direct Neighborhood Connection
+                    </span>
+                    <h2 class="font-head font-bold text-3xl sm:text-4xl leading-tight mb-4">
+                        A safer, simpler way to trade right where you live.
+                    </h2>
+                    <p class="text-surface/85 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
+                        Skip delivery waits and packing hassles. Exchange directly with verified local shops and buyers right in your town.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="aboutus.html" class="px-6 py-3.5 bg-white text-forest font-head font-semibold text-sm rounded-xl shadow-md hover:bg-surface transition-all hover:-translate-y-0.5">
+                            Learn How We Protect You
+                        </a>
+                        <a href="contactus.html" class="px-6 py-3.5 border border-white/30 text-white font-head font-semibold text-sm rounded-xl hover:bg-white/10 transition-all">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-start gap-4 hover:bg-white/15 transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0 font-bold text-lg shadow-inner">🛡️</div>
+                        <div>
+                            <h3 class="font-head font-semibold text-sm text-white">Verified Local Profiles</h3>
+                            <p class="text-xs text-surface/80 mt-1">Know who you are dealing with before meeting up locally.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-start gap-4 hover:bg-white/15 transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0 font-bold text-lg shadow-inner">🤝</div>
+                        <div>
+                            <h3 class="font-head font-semibold text-sm text-white">Zero Commission Fees</h3>
+                            <p class="text-xs text-surface/80 mt-1">Keep 100% of your earnings with direct peer-to-peer deals.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 flex items-start gap-4 hover:bg-white/15 transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0 font-bold text-lg shadow-inner">⚡</div>
+                        <div>
+                            <h3 class="font-head font-semibold text-sm text-white">Fast Direct Responses</h3>
+                            <p class="text-xs text-surface/80 mt-1">Coordinate pickup or delivery within hours in your locality.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: ACTIVE BUSINESSES AROUND YOU -->
+    <section class="max-w-7xl mx-auto px-6 py-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-
-                <span class="text-xs font-head font-semibold uppercase tracking-wider text-brand-orange mb-2 block">
-                    Fresh Nearby
-                </span>
-
-                <h2 class="font-head text-2xl sm:text-3xl font-bold tracking-tight text-brand-dark">
-                    Featured Local Listings
-                </h2>
-
+                <span class="text-xs font-head font-semibold uppercase tracking-wider text-clay mb-1 block">Local Economy</span>
+                <h2 class="font-head text-2xl sm:text-3xl font-bold tracking-tight text-ink">Active Businesses Around You</h2>
             </div>
-
-            <!-- Category Filter Buttons -->
-            <div class="flex flex-wrap items-center gap-2 text-xs font-medium" id="categoryFilters">
-
-                <button onclick="filterListings('all')" id="btn-all" class="px-4 py-2 rounded-full bg-brand-green text-white shadow-sm transition-all font-head font-semibold">
-                    All Items
-                </button>
-
-                <button onclick="filterListings('Furniture')" id="btn-Furniture" class="px-4 py-2 rounded-full bg-white border border-brand-border text-brand-muted hover:text-brand-dark transition-all font-head font-semibold">
-                    Furniture
-                </button>
-
-                <button onclick="filterListings('Electronics')" id="btn-Electronics" class="px-4 py-2 rounded-full bg-white border border-brand-border text-brand-muted hover:text-brand-dark transition-all font-head font-semibold">
-                    Electronics
-                </button>
-
-                <button onclick="filterListings('Vehicles')" id="btn-Vehicles" class="px-4 py-2 rounded-full bg-white border border-brand-border text-brand-muted hover:text-brand-dark transition-all font-head font-semibold">
-                    Vehicles
-                </button>
-
-            </div>
-
+            <a href="search.html" class="text-xs font-head font-semibold text-forest hover:text-forestDark transition-colors flex items-center gap-1">
+                Explore All Local Partners <span>→</span>
+            </a>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Business 1 -->
+            <div class="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-forest/10 text-forest flex items-center justify-center mb-4 font-head font-bold text-lg group-hover:scale-110 transition-transform">🌿</div>
+                <span class="text-[10px] font-head font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full uppercase border border-emerald-200">Open Now</span>
+                <h3 class="font-head font-bold text-base text-ink mt-3 group-hover:text-forest transition-colors">GreenLeaf Artisanal Bakery</h3>
+                <p class="text-xs text-ink/60 mt-1">Organic Sourdough & Fresh Bakes</p>
+                <p class="text-xs font-medium text-ink/40 mt-4 flex items-center gap-1">📍 Indiranagar • 0.4 km away</p>
+            </div>
 
-        <!-- Grid Container for Listing Cards -->
+            <!-- Business 2 -->
+            <div class="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-clay/10 text-clay flex items-center justify-center mb-4 font-head font-bold text-lg group-hover:scale-110 transition-transform">🚲</div>
+                <span class="text-[10px] font-head font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full uppercase border border-emerald-200">Open Now</span>
+                <h3 class="font-head font-bold text-base text-ink mt-3 group-hover:text-clay transition-colors">Cycle Craft Workshop</h3>
+                <p class="text-xs text-ink/60 mt-1">Bicycle Repair & Refurbished Bikes</p>
+                <p class="text-xs font-medium text-ink/40 mt-4 flex items-center gap-1">📍 Bandra West • 1.2 km away</p>
+            </div>
 
-        <div id="featuredListingsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Business 3 -->
+            <div class="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-forest/10 text-forest flex items-center justify-center mb-4 font-head font-bold text-lg group-hover:scale-110 transition-transform">☕</div>
+                <span class="text-[10px] font-head font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full uppercase border border-emerald-200">Open Now</span>
+                <h3 class="font-head font-bold text-base text-ink mt-3 group-hover:text-forest transition-colors">Roast & Timber Cafe</h3>
+                <p class="text-xs text-ink/60 mt-1">Specialty Coffee & Co-working</p>
+                <p class="text-xs font-medium text-ink/40 mt-4 flex items-center gap-1">📍 Connaught Place • 0.8 km away</p>
+            </div>
 
-            <!-- Dynamic content loaded via script -->
+            <!-- Business 4 -->
+            <div class="bg-white border border-ink/10 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-clay/10 text-clay flex items-center justify-center mb-4 font-head font-bold text-lg group-hover:scale-110 transition-transform">🔨</div>
+                <span class="text-[10px] font-head font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase border border-amber-200">Closes Soon</span>
+                <h3 class="font-head font-bold text-base text-ink mt-3 group-hover:text-clay transition-colors">Urban Joinery Studio</h3>
+                <p class="text-xs text-ink/60 mt-1">Custom Woodcraft & Furniture</p>
+                <p class="text-xs font-medium text-ink/40 mt-4 flex items-center gap-1">📍 Koregaon Park • 2.1 km away</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- SECTION 4: BROWSE BY TRADE CATEGORY -->
+    <section class="max-w-7xl mx-auto px-6 py-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-xs font-head font-semibold uppercase tracking-wider text-forest mb-1 block">Neighborhood Categories</span>
+                <h2 class="font-head text-2xl sm:text-3xl font-bold tracking-tight text-ink">Explore Popular Trade Sectors</h2>
+            </div>
+            <a href="search.html" class="text-xs font-head font-semibold text-forest hover:underline">All Categories (18+) →</a>
         </div>
 
-        <div class="text-center mt-12">
-
-            <a
-                href="search.html"
-                class="inline-flex items-center gap-2 border border-brand-border bg-white px-6 py-3 rounded-lg text-sm font-head font-semibold hover:border-brand-green hover:text-brand-green transition-colors"
-            >
-
-                <span>Explore All Community Listings</span>
-
-                <span class="text-base">→</span>
-
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <a href="search.html?cat=handicrafts" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-amber-50 group-hover:bg-forest text-amber-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    🎨
+                </div>
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Artisan Crafts</h3>
+                <p class="text-[11px] text-ink/50 mt-1">320+ items</p>
             </a>
 
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section id="how-it-works" class="max-w-[1400px] mx-auto px-6 py-16 w-full border-t border-brand-border/60">
-
-        <h2 class="font-head text-2xl font-bold mb-12">
-            How it works
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-
-            <div>
-
-                <div class="text-brand-green text-2xl font-head font-bold mb-4">
-                    1
+            <a href="search.html?cat=furniture" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 group-hover:bg-forest text-emerald-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    🪑
                 </div>
-
-                <h3 class="font-head font-bold text-[17px] mb-2">
-                    Search or browse
-                </h3>
-
-                <p class="text-brand-muted text-sm leading-relaxed">
-                    Find items by keyword, category, or on the map.
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <div class="text-brand-green text-2xl font-head font-bold mb-4">
-                    2
-                </div>
-
-                <h3 class="font-head font-bold text-[17px] mb-2">
-                    Message the seller
-                </h3>
-
-                <p class="text-brand-muted text-sm leading-relaxed">
-                    Ask questions and agree on a time to meet.
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <div class="text-brand-green text-2xl font-head font-bold mb-4">
-                    3
-                </div>
-
-                <h3 class="font-head font-bold text-[17px] mb-2">
-                    Meet up and pay
-                </h3>
-
-                <p class="text-brand-muted text-sm leading-relaxed">
-                    Complete the exchange locally, in person.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- STATS -->
-
-    <section class="max-w-[1400px] mx-auto px-6 py-20 w-full">
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
-            <div>
-                <div class="text-4xl md:text-5xl font-head font-bold text-brand-orange mb-3 tracking-tight">
-                    1,200+
-                </div>
-                <div class="text-brand-muted text-sm">
-                    Active listings
-                </div>
-            </div>
-
-            <div>
-                <div class="text-4xl md:text-5xl font-head font-bold text-brand-orange mb-3 tracking-tight">
-                    40+
-                </div>
-                <div class="text-brand-muted text-sm">
-                    Neighborhoods covered
-                </div>
-            </div>
-
-            <div>
-                <div class="text-4xl md:text-5xl font-head font-bold text-brand-orange mb-3 tracking-tight">
-                    No fees
-                </div>
-                <div class="text-brand-muted text-sm">
-                    To list or browse
-                </div>
-            </div>
-
-            <div>
-                <div class="text-4xl md:text-5xl font-head font-bold text-brand-orange mb-3 tracking-tight">
-                    24 hrs
-                </div>
-                <div class="text-brand-muted text-sm">
-                    Avg. seller response
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- CTA -->
-
-    <section class="max-w-[1400px] mx-auto px-6 pb-24 pt-8 w-full">
-
-        <div class="border border-brand-border rounded-[24px] py-16 px-6 text-center bg-transparent">
-
-            <h2 class="font-head text-3xl font-bold mb-4 tracking-tight">
-                Want to sell something? Submit your listing
-            </h2>
-
-            <p class="text-brand-muted mb-8 max-w-xl mx-auto text-[15px]">
-                Reach buyers across your city without listing fees or hassle.
-            </p>
-
-            <a
-                href="submit-listing.html"
-                class="inline-block bg-brand-green text-white font-head font-semibold py-3 px-6 rounded-lg hover:bg-[#2f5740] transition-colors"
-            >
-                Submit a listing
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Furniture & Wood</h3>
+                <p class="text-[11px] text-ink/50 mt-1">540+ items</p>
             </a>
 
-        </div>
+            <a href="search.html?cat=apparel" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-orange-50 group-hover:bg-forest text-orange-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    🧵
+                </div>
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Handlooms & Silks</h3>
+                <p class="text-[11px] text-ink/50 mt-1">410+ items</p>
+            </a>
 
+            <a href="search.html?cat=electronics" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-blue-50 group-hover:bg-forest text-blue-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    ⚡
+                </div>
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Electronics & Repairs</h3>
+                <p class="text-[11px] text-ink/50 mt-1">290+ items</p>
+            </a>
+
+            <a href="search.html?cat=organic" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-green-50 group-hover:bg-forest text-green-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    🌾
+                </div>
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Organic Produce</h3>
+                <p class="text-[11px] text-ink/50 mt-1">180+ items</p>
+            </a>
+
+            <a href="search.html?cat=vintage" class="bg-white border border-ink/10 hover:border-forest/40 rounded-2xl p-4 text-center group hover:shadow-lg transition-all flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-purple-50 group-hover:bg-forest text-purple-700 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-3 shadow-inner">
+                    📻
+                </div>
+                <h3 class="font-head font-bold text-xs sm:text-sm text-ink group-hover:text-forest transition-colors">Vintage & Curios</h3>
+                <p class="text-[11px] text-ink/50 mt-1">210+ items</p>
+            </a>
+        </div>
     </section>
 
+    <!-- SECTION 5: FEATURED LISTINGS -->
+    <section class="max-w-7xl mx-auto px-6 py-10 relative">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-xs font-head font-semibold uppercase tracking-wider text-forest mb-1 block">Curated Local Finds</span>
+                <h2 class="font-head text-2xl sm:text-3xl font-bold tracking-tight text-ink">Featured Listings</h2>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <button id="scrollLeftBtn" aria-label="Scroll Left" class="w-10 h-10 rounded-full border border-ink/15 bg-white text-ink flex items-center justify-center hover:bg-forest hover:text-white hover:border-forest transition-all shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button id="scrollRightBtn" aria-label="Scroll Right" class="w-10 h-10 rounded-full border border-ink/15 bg-white text-ink flex items-center justify-center hover:bg-forest hover:text-white hover:border-forest transition-all shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+                <a href="search.html" class="text-xs font-head font-semibold text-forest hover:underline">View All →</a>
+            </div>
+        </div>
 
-    <!-- FOOTER -->
+        <div id="featuredRail" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth py-4 px-1 snap-x snap-mandatory">
+            
+            <!-- Card 1 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?auto=format&fit=crop&q=80&w=600" alt="Teak Wooden Armchair" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹4,500</div>
+                    <div class="absolute bottom-3 left-3 bg-forest/90 text-white text-[10px] font-head font-semibold px-2.5 py-0.5 rounded-md backdrop-blur-sm">Verified Seller</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">Handcrafted Teak Armchair</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">Solid Sheesham wood finish, comfortable cushion seating.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span class="flex items-center gap-1">📍 Whitefield</span>
+                        <span>2h ago</span>
+                    </div>
+                </div>
+            </div>
 
-    <footer class="border-t border-brand-border bg-white mt-auto">
+            <!-- Card 2 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1520607162513-7770851e04ec?auto=format&fit=crop&q=80&w=600" alt="Vintage Brass Decor" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹3,200</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">Antique Brass Gramophone</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">Restored vintage display piece, rich brass patina finish.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span>📍 South Delhi</span>
+                        <span>4h ago</span>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Card 3 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&q=80&w=600" alt="Modern Sofa" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹18,500</div>
+                    <div class="absolute bottom-3 left-3 bg-forest/90 text-white text-[10px] font-head font-semibold px-2.5 py-0.5 rounded-md backdrop-blur-sm">Verified Seller</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">3-Seater Fabric Couch</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">Gently used olive green upholstery. Excellent condition.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span>📍 Jubilee Hills</span>
+                        <span>6h ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=600" alt="City Bicycle" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹7,900</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">Hybrid Commuter Bicycle</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">21-speed Shimano gears, lightweight alloy frame.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span>📍 Alwarpet</span>
+                        <span>1d ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600" alt="Handloom Silk Tapestry" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹2,800</div>
+                    <div class="absolute bottom-3 left-3 bg-forest/90 text-white text-[10px] font-head font-semibold px-2.5 py-0.5 rounded-md backdrop-blur-sm">Artisan Direct</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">Handwoven Silk Wall Hanging</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">Authentic traditional weave with rich zari borders.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span>📍 Salt Lake</span>
+                        <span>1d ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="min-w-[280px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group snap-start flex-shrink-0">
+                <div class="aspect-[4/3] bg-surface overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=600" alt="Ceramic Tea Set" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                    <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-ink shadow-md border border-white/40">₹1,450</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-head font-bold text-base text-ink truncate group-hover:text-forest transition-colors">Khurja Ceramic Tea Set</h3>
+                    <p class="text-xs text-ink/60 mt-1 line-clamp-2">Hand-painted 6 cups & teapot set, microwave safe.</p>
+                    <div class="mt-4 pt-3 border-t border-ink/5 flex items-center justify-between text-xs text-ink/50">
+                        <span>📍 Hazratganj</span>
+                        <span>2d ago</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 6: HOW IT WORKS -->
+    <section class="max-w-7xl mx-auto px-6 py-12">
+        <div class="bg-surface border border-ink/10 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden shadow-sm">
+            <h2 class="font-head font-bold text-2xl md:text-3xl text-ink">How It Works</h2>
+            <p class="text-ink/60 text-sm mt-2 max-w-lg mx-auto">Discover and trade items within your local neighborhood safely.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 relative z-10">
+                <div class="flex flex-col items-center bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-ink/5 hover:border-forest/20 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-forest/10 text-forest flex items-center justify-center mb-4 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                    </div>
+                    <h3 class="font-head font-semibold text-base text-ink">1. Browse Map</h3>
+                    <p class="text-xs text-ink/60 mt-1 max-w-xs">Explore nearby available items on our interactive real-time map.</p>
+                </div>
+                <div class="flex flex-col items-center bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-ink/5 hover:border-forest/20 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-forest/10 text-forest flex items-center justify-center mb-4 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    </div>
+                    <h3 class="font-head font-semibold text-base text-ink">2. Connect Directly</h3>
+                    <p class="text-xs text-ink/60 mt-1 max-w-xs">Contact verified local sellers directly without middleman friction.</p>
+                </div>
+                <div class="flex flex-col items-center bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-ink/5 hover:border-forest/20 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-forest/10 text-forest flex items-center justify-center mb-4 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    </div>
+                    <h3 class="font-head font-semibold text-base text-ink">3. Collect Locally</h3>
+                    <p class="text-xs text-ink/60 mt-1 max-w-xs">Arrange a quick community pickup or local drop-off with ease.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: STATS BAR -->
+    <section class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-6 bg-white rounded-2xl border border-ink/10 shadow-sm hover:shadow-md transition-shadow">
+                <p class="font-head font-bold text-3xl text-forest">5,000+</p>
+                <p class="text-xs text-ink/60 mt-1">Active Listings</p>
+            </div>
+            <div class="p-6 bg-white rounded-2xl border border-ink/10 shadow-sm hover:shadow-md transition-shadow">
+                <p class="font-head font-bold text-3xl text-clay">120+</p>
+                <p class="text-xs text-ink/60 mt-1">City Hubs</p>
+            </div>
+            <div class="p-6 bg-white rounded-2xl border border-ink/10 shadow-sm hover:shadow-md transition-shadow">
+                <p class="font-head font-bold text-3xl text-forest">0%</p>
+                <p class="text-xs text-ink/60 mt-1">Commission Fees</p>
+            </div>
+            <div class="p-6 bg-white rounded-2xl border border-ink/10 shadow-sm hover:shadow-md transition-shadow">
+                <p class="font-head font-bold text-3xl text-clay">&lt; 15 min</p>
+                <p class="text-xs text-ink/60 mt-1">Avg Response Time</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 pb-8">
+      <div class="bg-forest rounded-2xl p-8 md:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="font-head font-bold text-2xl md:text-3xl">Have something to sell locally?</h2>
+          <p class="text-white/80 text-sm mt-1 max-w-xl">List your items in under 2 minutes and connect with active buyers right in your local community.</p>
+        </div>
+        <a href="submit-listing.html" class="shrink-0 bg-white text-forest hover:bg-surface font-head font-semibold text-sm px-6 py-3.5 rounded-xl transition-colors shadow-md">
+          Submit Listing
+        </a>
+      </div>
+    </section>
+
+    </div>
+    <!-- END 3D DEPTH BACKGROUND WRAPPER -->
+
+    <!-- REQUESTED FOOTER INTEGRATION -->
+    <footer class="border-t border-ink/10 bg-white/90 backdrop-blur-md mt-auto z-10 relative">
         <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
-
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
 
                 <div>
-
-                    <a
-                        href="index.html"
-                        class="font-head font-bold text-xl tracking-tight text-brand-dark block mb-3"
-                    >
+                    <a href="index.html" class="font-head font-bold text-xl tracking-tight text-ink block mb-3">
                         DN Directory
                     </a>
-
-                    <p class="text-sm text-brand-muted font-body leading-relaxed max-w-xs">
+                    <p class="text-sm text-ink/60 font-body leading-relaxed max-w-xs">
                         Buy and sell locally with your community.
                     </p>
-
                 </div>
 
-
                 <div>
-
-                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
                         Explore
                     </h3>
-
-                    <ul class="space-y-3 text-sm">
-
+                    <ul class="space-y-3 text-sm font-body">
                         <li>
-                            <a
-                                href="search.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="search.html" class="text-forest font-semibold transition-colors">
                                 Search
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="category.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="category.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Categories
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="map.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="map.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Map View
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="submit-listing.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="submit-listing.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Submit Listing
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
 
-
                 <div>
-
-                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
                         Company
                     </h3>
-
-                    <ul class="space-y-3 text-sm">
-
+                    <ul class="space-y-3 text-sm font-body">
                         <li>
-                            <a
-                                href="aboutus.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="aboutus.html" class="text-ink/70 hover:text-forest transition-colors">
                                 About Us
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="contactus.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="contactus.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Contact Us
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="#"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="#" class="text-ink/70 hover:text-forest transition-colors">
                                 Privacy Policy
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
 
-
                 <div>
-
-                    <h3 class="font-head font-bold text-sm uppercase tracking-wider mb-5">
+                    <h3 class="font-head font-bold text-sm text-ink uppercase tracking-wider mb-5">
                         Account
                     </h3>
-
-                    <ul class="space-y-3 text-sm">
-
+                    <ul class="space-y-3 text-sm font-body">
                         <li>
-                            <a
-                                href="account.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="account.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Sign In
                             </a>
                         </li>
-
                         <li>
-                            <a
-                                href="account.html"
-                                class="text-brand-muted hover:text-brand-green transition-colors"
-                            >
+                            <a href="account.html" class="text-ink/70 hover:text-forest transition-colors">
                                 Sign Up
                             </a>
                         </li>
-
                     </ul>
+                    
+                    <div class="flex items-center gap-3 mt-6">
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/r.php" target="_blank" rel="noopener noreferrer" aria-label="Facebook Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
+                            </svg>
+                        </a>
 
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/accounts/emailsignup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                                <circle cx="12" cy="12" r="4"/>
+                                <circle cx="17.5" cy="6.5" r="1"/>
+                            </svg>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/signup" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
             </div>
 
-
-            <div class="mt-12 pt-7 border-t border-brand-border">
-
+            <div class="mt-12 pt-7 border-t border-ink/10">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-
-                    <p class="text-xs text-brand-muted">
+                    <p class="text-xs text-ink/60 font-body">
                         © 2026 DN Directory. All rights reserved.
                     </p>
-
-                    <p class="text-xs text-brand-muted">
+                    <p class="text-xs text-ink/60 font-body">
                         Designed and Developed by
-                        <a
-                            href="https://www.dignexus.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-brand-green font-semibold hover:underline"
-                        >
+                        <a href="https://www.dignexus.com/" target="_blank" rel="noopener noreferrer" class="text-forest font-semibold hover:underline">
                             Diginexus
                         </a>
                     </p>
-
                 </div>
-
-
-                <div class="flex items-center gap-3 mt-6">
-
-                    <!-- Facebook -->
-
-                    <a
-                        href="https://www.facebook.com/r.php"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-
-                            <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
-
-                        </svg>
-
-                    </a>
-
-
-                    <!-- Instagram -->
-
-                    <a
-                        href="https://www.instagram.com/accounts/emailsignup/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                        >
-
-                            <rect
-                                x="3"
-                                y="3"
-                                width="18"
-                                height="18"
-                                rx="5"
-                            />
-
-                            <circle
-                                cx="12"
-                                cy="12"
-                                r="4"
-                            />
-
-                            <circle
-                                cx="17.5"
-                                cy="6.5"
-                                r="1"
-                            />
-
-                        </svg>
-
-                    </a>
-
-
-                    <!-- LinkedIn -->
-
-                    <a
-                        href="https://www.linkedin.com/signup"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-
-                            <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.83 1.24-1.83 2.53V19h-3v-9z"/>
-
-                        </svg>
-
-                    </a>
-
-                </div>
-
             </div>
-
         </div>
-
     </footer>
 
-    <!-- DYNAMIC LISTINGS & CAROUSEL SCRIPTS -->
-
+    <!-- INTERACTION SCRIPT -->
     <script>
-        // Hero Carousel Logic
-        let currentSlide = 0;
+        // 1. Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 2. Multi-slide Carousel Rotator
         const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('#carouselIndicators button');
-        const totalSlides = slides.length;
-        let slideInterval;
+        const indicators = document.querySelectorAll('#carouselIndicators span');
+        let currentSlide = 0;
 
-        function updateCarousel() {
-            slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.classList.remove('opacity-0');
-                    slide.classList.add('opacity-100');
-                } else {
-                    slide.classList.remove('opacity-100');
-                    slide.classList.add('opacity-0');
-                }
-            });
-
-            dots.forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.className = "w-2.5 h-2.5 rounded-full bg-white transition-all";
-                } else {
-                    dot.className = "w-2.5 h-2.5 rounded-full bg-white/40 transition-all";
-                }
-            });
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-            resetTimer();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-            resetTimer();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-            resetTimer();
-        }
-
-        function startTimer() {
-            slideInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateCarousel();
-            }, 5000);
-        }
-
-        function resetTimer() {
-            clearInterval(slideInterval);
-            startTimer();
-        }
-
-        // Initialize Carousel Auto-play
-        startTimer();
-
-        // Featured Listings Logic
-        const featuredListings = [
-            {
-                id: 1,
-                title: "Solid Oak Dining Table",
-                category: "Furniture",
-                price: "$280",
-                location: "Downtown • 1.2 km away",
-                time: "2h ago",
-                img: "https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                id: 2,
-                title: "Sony Noise-Canceling Headphones",
-                category: "Electronics",
-                price: "$140",
-                location: "Westside • 2.5 km away",
-                time: "4h ago",
-                img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                id: 3,
-                title: "Vintage Restored Road Bicycle",
-                category: "Vehicles",
-                price: "$320",
-                location: "Eastside • 0.8 km away",
-                time: "6h ago",
-                img: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                id: 4,
-                title: "Mid-Century Modern Lounge Chair",
-                category: "Furniture",
-                price: "$195",
-                location: "Downtown • 3.1 km away",
-                time: "1d ago",
-                img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=600"
-            }
-        ];
-
-        let activeCategory = 'all';
-
-        function renderListings() {
-            const container = document.getElementById('featuredListingsContainer');
-            const filtered = activeCategory === 'all' 
-                ? featuredListings 
-                : featuredListings.filter(item => item.category === activeCategory);
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-brand-muted py-8">No listings found for this category.</p>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(item => `
-                <a href="listing.html?id=${item.id}" class="group border border-brand-border rounded-2xl overflow-hidden bg-white hover:border-brand-green/50 transition-all flex flex-col">
-                    <div class="relative aspect-[4/3] bg-surface overflow-hidden">
-                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                        <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-brand-dark text-xs font-head font-bold px-2.5 py-1 rounded-full shadow-sm">
-                            ${item.price}
-                        </span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow justify-between">
-                        <div>
-                            <p class="text-xs font-head font-semibold text-brand-green mb-1 uppercase tracking-wider">${item.category}</p>
-                            <h3 class="font-head font-bold text-base text-brand-dark group-hover:text-brand-green transition-colors line-clamp-1">${item.title}</h3>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-brand-muted">
-                            <span>${item.location}</span>
-                            <span>${item.time}</span>
-                        </div>
-                    </div>
-                </a>
-            `).join('');
-        }
-
-        function filterListings(category) {
-            activeCategory = category;
+        setInterval(() => {
+            slides[currentSlide].classList.add('opacity-0');
+            slides[currentSlide].classList.remove('opacity-100');
             
-            // Update filter button states
-            ['all', 'Furniture', 'Electronics', 'Vehicles'].forEach(cat => {
-                const btn = document.getElementById(`btn-${cat}`);
-                if (cat === category) {
-                    btn.className = "px-4 py-2 rounded-full bg-brand-green text-white shadow-sm transition-all font-head font-semibold";
+            indicators[currentSlide].classList.remove('w-8', 'bg-white', 'opacity-100');
+            indicators[currentSlide].classList.add('w-2.5', 'bg-white/40', 'opacity-60');
+
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            slides[currentSlide].classList.remove('opacity-0');
+            slides[currentSlide].classList.add('opacity-100');
+
+            indicators[currentSlide].classList.remove('w-2.5', 'bg-white/40', 'opacity-60');
+            indicators[currentSlide].classList.add('w-8', 'bg-white', 'opacity-100');
+        }, 4500);
+
+        // 3. Featured Listings Horizontal Scroll Rail
+        const featuredRail = document.getElementById('featuredRail');
+        const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+        const scrollRightBtn = document.getElementById('scrollRightBtn');
+
+        scrollLeftBtn?.addEventListener('click', () => {
+            featuredRail.scrollBy({ left: -340, behavior: 'smooth' });
+        });
+
+        scrollRightBtn?.addEventListener('click', () => {
+            featuredRail.scrollBy({ left: 340, behavior: 'smooth' });
+        });
+
+        // Auto-Scroll Rail (Pause on Hover)
+        let isHovered = false;
+        featuredRail?.addEventListener('mouseenter', () => isHovered = true);
+        featuredRail?.addEventListener('mouseleave', () => isHovered = false);
+
+        setInterval(() => {
+            if (!isHovered && featuredRail) {
+                if (featuredRail.scrollLeft + featuredRail.clientWidth >= featuredRail.scrollWidth - 10) {
+                    featuredRail.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
-                    btn.className = "px-4 py-2 rounded-full bg-white border border-brand-border text-brand-muted hover:text-brand-dark transition-all font-head font-semibold";
+                    featuredRail.scrollBy({ left: 340, behavior: 'smooth' });
                 }
-            });
-
-            renderListings();
-        }
-
-        // Render initial listings
-        renderListings();
+            }
+        }, 4000);
     </script>
-
-    <!-- Dynamic Navbar Active State Script -->
-    <script>
-      function highlightActiveNav() {
-        let currentPath = window.location.pathname.split("/").pop();
-        if (!currentPath) currentPath = "index.html";
-
-        // Highlight Desktop Links
-        document.querySelectorAll('.nav-link').forEach(link => {
-          const href = link.getAttribute('href');
-          if (href === currentPath) {
-            link.classList.add('font-semibold', 'text-ink');
-            link.classList.remove('text-ink/70');
-          } else {
-            link.classList.remove('font-semibold', 'text-ink');
-            link.classList.add('text-ink/70');
-          }
-        });
-
-        // Highlight Mobile Links
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-          const href = link.getAttribute('href');
-          if (href === currentPath) {
-            link.classList.add('font-semibold', 'text-ink');
-            link.classList.remove('text-ink/80');
-          } else {
-            link.classList.remove('font-semibold', 'text-ink');
-            link.classList.add('text-ink/80');
-          }
-        });
-      }
-
-      window.addEventListener('DOMContentLoaded', highlightActiveNav);
-    </script>
-
 </body>
 </html>
