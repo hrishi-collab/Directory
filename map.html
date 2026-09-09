@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Map View - DN Directory</title>
-<link rel="icon" href="assets/favicon.png" type="image/png">
+<title>Map View -  Directory</title>
+<link rel="icon" href="assets/convenience-store.png" type="image/png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,17 +39,44 @@
     border: none !important;
   }
 </style>
+
+    <style>
+        /* Reusable navbar active-page state */
+        .nav-link, .nav-link-mobile { position: relative; }
+        .nav-active { color: #1B211D !important; font-weight: 600 !important; }
+        .nav-link.nav-active::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+            height: 2px; border-radius: 2px; background: #3D6B52;
+        }
+        .nav-link-mobile.nav-active {
+            border-left: 3px solid #3D6B52; padding-left: 0.75rem; margin-left: -0.75rem;
+        }
+        /* Back to top button */
+        #backToTopBtn {
+            position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 60;
+            width: 3rem; height: 3rem; border-radius: 9999px;
+            background: #3D6B52; color: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+            opacity: 0; transform: translateY(12px); pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+        }
+        #backToTopBtn.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        #backToTopBtn:hover { background: #2E5140; }
+        @media (max-width: 640px) {
+            #backToTopBtn { right: 1rem; bottom: 1rem; width: 2.75rem; height: 2.75rem; }
+        }
+    </style>
 </head>
 <body class="font-body bg-white text-ink min-h-screen flex flex-col justify-between">
 
   <!-- Navbar -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-ink/10">
-    <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
+    <div class="max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 md:px-0 xl:px-8 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
 
         <!-- Logo -->
-        <a href="index.html" class="flex items-center font-head font-bold text-xl tracking-tight text-ink">
-            <img src="assets/favicon.png" alt="Directory Logo" class="w-10 h-10 mr-1 object-contain">
-            irectory
+        <a href="index.html" class="site-logo flex items-center gap-2 font-head font-bold text-xl tracking-tight text-ink">
+            <span class="text-2xl leading-none" aria-hidden="true">🏪</span>
+            <span>Directory</span>
         </a>
 
         <!-- Desktop Navigation -->
@@ -78,7 +105,9 @@
         <!-- Right side: Contact Us + Account + Mobile Menu Toggle -->
         <div class="justify-self-end flex items-center gap-2 md:gap-4 shrink-0">
             <a href="contactus.html" class="flex items-center gap-2 bg-green-900 hover:bg-green-700 text-white p-2.5 md:px-4 md:py-2 rounded-lg font-head font-bold text-sm tracking-tight whitespace-nowrap transition-all">
-                <img src="assets/favicon.png" alt="Directory Logo" class="w-5 h-5 object-contain shrink-0"> 
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a1.5 1.5 0 001.5-1.5v-3.632a1.5 1.5 0 00-1.5-1.5c-1.32 0-2.63-.213-3.85-.607a1.125 1.125 0 00-1.11.418l-1.24 1.612a13.5 13.5 0 01-6.19-6.19l1.612-1.24a1.125 1.125 0 00.418-1.11A11.25 11.25 0 016.882 3.75 1.5 1.5 0 005.382 2.25H3.75a1.5 1.5 0 00-1.5 1.5z" />
+                </svg>
                 <span class="hidden md:inline">Contact Us</span>
             </a>
 
@@ -167,10 +196,52 @@
 </script>
 
   <!-- Main Content Container -->
-  <main class="flex-grow pt-24 pb-16">
+  <main class="flex-grow z-10 relative">
+    <!-- Map Hero Section -->
+<section class="relative w-full h-[60vh] min-h-[480px] max-h-[620px] flex items-center justify-start pt-20 px-6 md:px-16 overflow-hidden">
+    <!-- Carousel Background Images -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-cover bg-center animate-hero-fade-1" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-cover bg-center animate-hero-fade-2" style="background-image: url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-cover bg-center animate-hero-fade-3" style="background-image: url('https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=1920&q=80');"></div>
+    </div>
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-20 max-w-[1200px] mx-auto w-full text-white">
+        <div class="max-w-2xl">
+            <span class="text-xs font-head font-bold uppercase tracking-widest text-white/80 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full inline-block mb-4 border border-white/10">
+                Interactive Map View
+            </span>
+            <h1 class="font-head font-bold text-4xl md:text-5xl text-white tracking-tight mb-4 leading-tight">
+                Locate listings directly in your vicinity
+            </h1>
+            <p class="text-white/80 font-body text-sm md:text-base mb-8 leading-relaxed max-w-xl">
+                Explore items pins across streets and sectors. Find great deals within walking distance from your doorstep.
+            </p>
+            <div class="flex flex-wrap gap-3">
+                <a href="#map-container" class="bg-forest hover:bg-forest/80 text-white px-5 py-3 rounded-lg font-head font-semibold text-sm transition-all flex items-center gap-2">
+                    Explore Interactive Map →
+                </a>
+                <a href="search.html" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3 rounded-lg font-head font-semibold text-sm backdrop-blur-md transition-all">
+                    View List Grid
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel Slide Indicators -->
+    <div class="absolute bottom-6 right-8 z-20 flex items-center gap-2">
+        <span class="w-8 h-1 bg-white rounded-full"></span>
+        <span class="w-2 h-1 bg-white/40 rounded-full"></span>
+        <span class="w-2 h-1 bg-white/40 rounded-full"></span>
+    </div>
+</section>
     
     <!-- Page Header -->
-    <section class="max-w-7xl mx-auto px-6 pt-4 pb-4 flex items-end justify-between flex-wrap gap-3">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 pt-4 pb-4 flex items-end justify-between flex-wrap gap-3">
       <div>
         <a href="search.html" class="text-sm text-ink/50 hover:text-forest font-body">← List view</a>
         <h1 class="font-head font-bold text-2xl md:text-3xl mt-2">Listings near you</h1>
@@ -179,7 +250,7 @@
     </section>
 
     <!-- SECTION 1: FILTER BAR -->
-    <section class="max-w-7xl mx-auto px-6 mb-6">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 mb-6">
       <div class="bg-surface border border-ink/10 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full md:w-auto">
           <!-- Category Filter -->
@@ -219,7 +290,7 @@
     </section>
 
     <!-- SECTION 2: MAP + SIDE LIST SPLIT VIEW -->
-    <section class="max-w-7xl mx-auto px-6 pb-12 flex flex-col lg:flex-row gap-6 h-auto lg:h-[70vh] lg:min-h-[500px]">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 pb-12 flex flex-col lg:flex-row gap-8 lg:gap-12 h-auto lg:h-[70vh] lg:min-h-[500px]">
 
       <!-- Interactive Leaflet Map Container -->
       <div id="map" class="w-full h-[350px] lg:h-full lg:flex-1 rounded-xl overflow-hidden border border-ink/10 z-0 bg-surface"></div>
@@ -232,7 +303,7 @@
     </section>
 
     <!-- SECTION 3: POPULAR CATEGORIES -->
-    <section class="max-w-7xl mx-auto px-6 py-8">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 py-8">
       <h2 class="font-head font-bold text-2xl text-ink mb-6">Explore Categories</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
         <a href="category.html" class="flex flex-col items-center justify-center p-5 bg-surface rounded-xl border border-ink/10 hover:border-forest hover:-translate-y-1 transition-all text-center group">
@@ -263,19 +334,19 @@
     </section>
 
     <!-- SECTION 4: FEATURED LISTINGS GRID -->
-    <section class="max-w-7xl mx-auto px-6 py-8">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 py-8">
       <div class="flex items-center justify-between mb-6">
         <h2 class="font-head font-bold text-2xl text-ink">Top Rated Nearby</h2>
         <a href="search.html" class="text-sm font-medium text-forest hover:underline">View all →</a>
       </div>
 
-      <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
         <!-- Populated via script -->
       </div>
     </section>
 
     <!-- SECTION 5: HOW IT WORKS -->
-    <section class="max-w-7xl mx-auto px-6 py-12">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 py-12">
       <div class="bg-surface border border-ink/10 rounded-2xl p-8 md:p-12 text-center">
         <h2 class="font-head font-bold text-2xl md:text-3xl text-ink">How It Works</h2>
         <p class="text-ink/60 text-sm md:text-base mt-2 max-w-lg mx-auto">Discover and trade items within your local neighborhood safely and effortlessly.</p>
@@ -309,8 +380,8 @@
     </section>
 
     <!-- SECTION 6: SUBMIT LISTING CTA BANNER -->
-    <section class="max-w-7xl mx-auto px-6 pb-8">
-      <div class="bg-forest rounded-2xl p-8 md:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+    <section class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 pb-8">
+      <div class="bg-forest rounded-2xl p-8 md:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-12">
         <div>
           <h2 class="font-head font-bold text-2xl md:text-3xl">Have something to sell locally?</h2>
           <p class="text-white/80 text-sm mt-1 max-w-xl">List your items in under 2 minutes and connect with active buyers right in your local community.</p>
@@ -324,17 +395,32 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-ink/10 bg-white mt-auto">
-        <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+  <footer class="border-t border-ink/10 bg-amber-50 mt-auto">
+        <div class="max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 md:px-0 xl:px-8 py-14">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
                 <div>
-        <a href="index.html" class="flex items-center font-head font-bold text-xl tracking-tight text-ink">
-            <img src="assets/favicon.png" alt="Directory Logo" class="w-10 h-10 mr-1 object-contain">
-            irectory
+        <a href="index.html" class="site-logo flex items-center gap-2 font-head font-bold text-xl tracking-tight text-ink">
+            <span class="text-2xl leading-none" aria-hidden="true">🏪</span>
+            <span>Directory</span>
         </a>
         <p class="text-sm text-ink/60 font-body leading-relaxed max-w-xs mt-3">
           Buy and sell locally with your community.
         </p>
+
+        <div class="flex items-center gap-3 mt-6">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/r.php" target="_blank" rel="noopener noreferrer" aria-label="Facebook Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/accounts/emailsignup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/signup" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/></svg>
+                    </a>
+                </div>
       </div>
 
                 <div>
@@ -368,20 +454,6 @@
                         <li><a href="account.html" class="text-ink/60 hover:text-forest transition-colors">Sign In</a></li>
                         <li><a href="account.html" class="text-ink/60 hover:text-forest transition-colors">Sign Up</a></li>
                     </ul>
-                    <div class="flex items-center gap-3 mt-6">
-                    <!-- Facebook -->
-                    <a href="https://www.facebook.com/r.php" target="_blank" rel="noopener noreferrer" aria-label="Facebook Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/></svg>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/accounts/emailsignup/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-                    </a>
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/signup" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Sign Up" class="w-9 h-9 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:text-forest transition-colors">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/></svg>
-                    </a>
-                </div>
                 </div>
             </div>
 
@@ -584,5 +656,34 @@
       loadListingsAndMap();
     });
   </script>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="backToTopBtn" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+
+    <script>
+        // Reusable navbar: highlight the active page link
+        (function highlightActiveNavLink() {
+            let currentPage = window.location.pathname.split('/').pop();
+            if (!currentPage) currentPage = 'index.html';
+            document.querySelectorAll('.nav-link, .nav-link-mobile').forEach((link) => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) link.classList.add('nav-active');
+            });
+        })();
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
+        });
+        backToTopBtn?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>

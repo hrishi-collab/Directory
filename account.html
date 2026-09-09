@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Account | DN Directory</title>
+    <title>My Account |  Directory</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="icon" href="assets/convenience-store.png" type="image/png">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
@@ -50,6 +50,33 @@
         }
     </script>
 
+
+    <style>
+        /* Reusable navbar active-page state */
+        .nav-link, .nav-link-mobile { position: relative; }
+        .nav-active { color: #1B211D !important; font-weight: 600 !important; }
+        .nav-link.nav-active::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+            height: 2px; border-radius: 2px; background: #3D6B52;
+        }
+        .nav-link-mobile.nav-active {
+            border-left: 3px solid #3D6B52; padding-left: 0.75rem; margin-left: -0.75rem;
+        }
+        /* Back to top button */
+        #backToTopBtn {
+            position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 60;
+            width: 3rem; height: 3rem; border-radius: 9999px;
+            background: #3D6B52; color: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+            opacity: 0; transform: translateY(12px); pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+        }
+        #backToTopBtn.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        #backToTopBtn:hover { background: #2E5140; }
+        @media (max-width: 640px) {
+            #backToTopBtn { right: 1rem; bottom: 1rem; width: 2.75rem; height: 2.75rem; }
+        }
+    </style>
 </head>
 
 <body class="bg-brand-bg text-brand-dark font-sans antialiased flex flex-col min-h-screen pt-20">
@@ -57,12 +84,12 @@
     <!-- FIXED NAVBAR -->
 
    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-ink/10">
-    <div class="max-w-[1200px] mx-auto px-6 md:px-0 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
+    <div class="max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 md:px-0 xl:px-8 h-20 grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center">
 
         <!-- Logo -->
-        <a href="index.html" class="flex items-center font-head font-bold text-xl tracking-tight text-ink">
-            <img src="assets/favicon.png" alt="Directory Logo" class="w-10 h-10 mr-1 object-contain">
-            irectory
+        <a href="index.html" class="site-logo flex items-center gap-2 font-head font-bold text-xl tracking-tight text-ink">
+            <span class="text-2xl leading-none" aria-hidden="true">🏪</span>
+            <span>Directory</span>
         </a>
 
         <!-- Desktop Navigation -->
@@ -91,7 +118,9 @@
         <!-- Right side: Contact Us + Account + Mobile Menu Toggle -->
         <div class="justify-self-end flex items-center gap-2 md:gap-4 shrink-0">
             <a href="contactus.html" class="flex items-center gap-2 bg-green-900 hover:bg-green-700 text-white p-2.5 md:px-4 md:py-2 rounded-lg font-head font-bold text-sm tracking-tight whitespace-nowrap transition-all">
-                <img src="assets/favicon.png" alt="Directory Logo" class="w-5 h-5 object-contain shrink-0"> 
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a1.5 1.5 0 001.5-1.5v-3.632a1.5 1.5 0 00-1.5-1.5c-1.32 0-2.63-.213-3.85-.607a1.125 1.125 0 00-1.11.418l-1.24 1.612a13.5 13.5 0 01-6.19-6.19l1.612-1.24a1.125 1.125 0 00.418-1.11A11.25 11.25 0 016.882 3.75 1.5 1.5 0 005.382 2.25H3.75a1.5 1.5 0 00-1.5 1.5z" />
+                </svg>
                 <span class="hidden md:inline">Contact Us</span>
             </a>
 
@@ -183,7 +212,7 @@
 
     <!-- ACCOUNT CONTENT -->
 
-    <main class="max-w-[1200px] mx-auto px-6 md:px-0 py-14 md:py-16 flex-grow w-full">
+    <main class="max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 md:px-0 xl:px-8 py-14 md:py-16 flex-grow w-full">
 
         <div class="max-w-4xl mx-auto">
 
@@ -234,7 +263,7 @@
                         </p>
                     </div>
 
-                    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault(); saveDetails();">
+                    <form class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" onsubmit="event.preventDefault(); saveDetails();">
 
                         <div>
                             <label for="fullName" class="block font-head font-semibold text-sm mb-2">
@@ -379,20 +408,115 @@
 
     <!-- FOOTER -->
 
-    <footer class="border-t border-brand-border bg-white mt-auto">
+    <footer class="border-t border-brand-border bg-amber-50 mt-auto">
 
-        <div class="max-w-[1200px] mx-auto px-6 md:px-0 py-14">
+        <div class="max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 md:px-0 xl:px-8 py-14">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
 
                <div>
-        <a href="index.html" class="flex items-center font-head font-bold text-xl tracking-tight text-ink">
-            <img src="assets/favicon.png" alt="Directory Logo" class="w-10 h-10 mr-1 object-contain">
-            irectory
+        <a href="index.html" class="site-logo flex items-center gap-2 font-head font-bold text-xl tracking-tight text-ink">
+            <span class="text-2xl leading-none" aria-hidden="true">🏪</span>
+            <span>Directory</span>
         </a>
         <p class="text-sm text-ink/60 font-body leading-relaxed max-w-xs mt-3">
           Buy and sell locally with your community.
         </p>
+
+        <div class="flex items-center gap-3 mt-6">
+
+                    <!-- Facebook -->
+
+                    <a
+                        href="https://www.facebook.com/r.php"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- Instagram -->
+
+                    <a
+                        href="https://www.instagram.com/accounts/emailsignup/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+
+                            <rect
+                                x="3"
+                                y="3"
+                                width="18"
+                                height="18"
+                                rx="5"
+                            />
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                            />
+
+                            <circle
+                                cx="17.5"
+                                cy="6.5"
+                                r="1"
+                            />
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- LinkedIn -->
+
+                    <a
+                        href="https://www.linkedin.com/signup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn Sign Up"
+                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+
+                            <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/>
+
+                        </svg>
+
+                    </a>
+
+                </div>
       </div>
 
 
@@ -512,101 +636,6 @@
                         </li>
 
                     </ul>
-                    <div class="flex items-center gap-3 mt-6">
-
-                    <!-- Facebook -->
-
-                    <a
-                        href="https://www.facebook.com/r.php"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-
-                            <path d="M14 8h3V5h-3c-2.8 0-5 2.2-5 5v2H6v3h3v5h3v-5h3l1-3h-4v-2c0-1.1.9-2 2-2z"/>
-
-                        </svg>
-
-                    </a>
-
-
-                    <!-- Instagram -->
-
-                    <a
-                        href="https://www.instagram.com/accounts/emailsignup/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                        >
-
-                            <rect
-                                x="3"
-                                y="3"
-                                width="18"
-                                height="18"
-                                rx="5"
-                            />
-
-                            <circle
-                                cx="12"
-                                cy="12"
-                                r="4"
-                            />
-
-                            <circle
-                                cx="17.5"
-                                cy="6.5"
-                                r="1"
-                            />
-
-                        </svg>
-
-                    </a>
-
-
-                    <!-- LinkedIn -->
-
-                    <a
-                        href="https://www.linkedin.com/signup"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn Sign Up"
-                        class="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-green transition-colors"
-                    >
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-
-                            <path d="M6.5 8.5A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3.5zM5 10h3v9H5v-9zm5 0h3v1.23c.42-.76 1.4-1.73 3.16-1.73 3.38 0 4.01 2.22 4.01 5.1V19h-3v-4.78c0-1.14-.02-2.61-1.59-2.61-1.59 0-1.83 1.24-1.83 2.53V19h-3v-9z"/>
-
-                        </svg>
-
-                    </a>
-
-                </div>
-
                 </div>
 
             </div>
@@ -751,38 +780,33 @@
     </script>
 
     <!-- Dynamic Navbar Active State Script -->
+    <!-- BACK TO TOP BUTTON -->
+    <button id="backToTopBtn" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+
     <script>
-      function highlightActiveNav() {
-        let currentPath = window.location.pathname.split("/").pop();
-        if (!currentPath) currentPath = "index.html";
+        // Reusable navbar: highlight the active page link
+        (function highlightActiveNavLink() {
+            let currentPage = window.location.pathname.split('/').pop();
+            if (!currentPage) currentPage = 'index.html';
+            document.querySelectorAll('.nav-link, .nav-link-mobile').forEach((link) => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) link.classList.add('nav-active');
+            });
+        })();
 
-        // Highlight Desktop Links
-        document.querySelectorAll('.nav-link').forEach(link => {
-          const href = link.getAttribute('href');
-          if (href === currentPath) {
-            link.classList.add('font-semibold', 'text-ink');
-            link.classList.remove('text-ink/70');
-          } else {
-            link.classList.remove('font-semibold', 'text-ink');
-            link.classList.add('text-ink/70');
-          }
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
         });
-
-        // Highlight Mobile Links
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-          const href = link.getAttribute('href');
-          if (href === currentPath) {
-            link.classList.add('font-semibold', 'text-ink');
-            link.classList.remove('text-ink/80');
-          } else {
-            link.classList.remove('font-semibold', 'text-ink');
-            link.classList.add('text-ink/80');
-          }
+        backToTopBtn?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-      }
-
-      window.addEventListener('DOMContentLoaded', highlightActiveNav);
     </script>
-
 </body>
 </html>
